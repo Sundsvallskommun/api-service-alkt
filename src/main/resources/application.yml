@@ -1,6 +1,10 @@
 #========================================
 # General settings
 #========================================
+integration:
+  party:
+    connect-timeout: 5
+    read-timeout: 30
 logging:
   level:
     root: INFO
@@ -10,4 +14,16 @@ openapi:
   version: '@project.version@'
 spring:
   application:
-    name: template
+    name: api-alkt
+  cache:
+    cache-names: partyIds, legalIds
+    caffeine:
+      spec: maximumSize=1000, expireAfterWrite=86400s
+  security:
+    oauth2:
+      client:
+        registration:
+          party:
+            authorization-grant-type: client_credentials
+            provider: party
+
