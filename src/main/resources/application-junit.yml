@@ -3,4 +3,21 @@
 #========================================
 logging:
   level:
-    root: DEBUG
+    root: INFO
+spring:
+  cache:
+    type: none
+  security:
+    oauth2:
+      client:
+        registration:
+          party:
+            client-id: override
+            client-secret: override
+        provider:
+            party:
+                token-uri: http://url.com/token
+
+integration:
+  party:
+    url: http://url.com
