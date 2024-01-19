@@ -69,7 +69,7 @@
 						<configuration>
 							<inputSpec>src/main/resources/integrations/party-api.yml</inputSpec>
 							<output>${generated-sources-path}</output>
-							<generatorName>jaxrs-spec</generatorName>
+							<generatorName>spring</generatorName>
 							<generateApis>false</generateApis>
 							<generateSupportingFiles>false</generateSupportingFiles>
 							<configOptions>
