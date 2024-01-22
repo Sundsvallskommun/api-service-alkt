@@ -19,6 +19,27 @@ spring:
     cache-names: partyIds, legalIds
     caffeine:
       spec: maximumSize=1000, expireAfterWrite=86400s
+  datasource:
+    url: jdbc:sqlserver://127.0.0.1:1433;databaseName=AlkTSundsvall;trustServerCertificate=true
+    username: SA
+    password: P@ssword
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        hbm2ddl:
+          schema-generation:
+            script:
+              append: false
+      jakarta:
+          persistence:
+              schema-generation:
+                create-source: metadata
+                database:
+                  action: validate
+                scripts:
+                  action: create
+                  create-target: target/database/generated-schema.sql
   security:
     oauth2:
       client:
