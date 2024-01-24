@@ -1,27 +1,51 @@
 package se.sundsvall.alkt.integration.db.entity;
 
-import java.time.Instant;
+import java.util.List;
 
+import se.sundsvall.alkt.integration.db.listener.PersistencePreventionListener;
+
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "Handläggare", schema = "dbo")
-public class CaseManager {
+@EntityListeners(PersistencePreventionListener.class)
+@Table(name = "Handläggare")
+@ToString
+public class CaseManagerEntity {
+
 	@Id
 	@Size(max = 5)
-	@Column(name = "HandlaggarID", nullable = false, length = 5)
+	@Column(name = "HandlaggarID", nullable = false, length = 5, insertable = false, updatable = false)
 	private String handlaggarID;
 
-	@NotNull
+	@Size(max = 15)
+	@Column(name = "TelefonNr1", length = 15, insertable = false, updatable = false)
+	private String telefonNr1;
+
+	@Size(max = 50)
+	@Column(name = "OrgEnhet", length = 50, insertable = false, updatable = false)
+	private String orgEnhet;
+
+
+	/////////////////////////////////////////////////////
+
+	/*@NotNull
 	@Column(name = "\"Handläggare\"", nullable = false)
 	private Boolean handläggare = false;
 
@@ -45,9 +69,6 @@ public class CaseManager {
 	@Column(name = "SlutnaSallskap", nullable = false)
 	private Boolean slutnaSallskap = false;
 
-	@Size(max = 50)
-	@Column(name = "OrgEnhet", length = 50)
-	private String orgEnhet;
 
 	@Size(max = 40)
 	@Column(name = "Namn", length = 40)
@@ -65,9 +86,6 @@ public class CaseManager {
 	@Column(name = "PAdress", length = 40)
 	private String pAdress;
 
-	@Size(max = 15)
-	@Column(name = "TelefonNr1", length = 15)
-	private String telefonNr1;
 
 	@Size(max = 15)
 	@Column(name = "TelefonNr2", length = 15)
@@ -212,6 +230,6 @@ public class CaseManager {
 
 	@NotNull
 	@Column(name = "Roles", nullable = false)
-	private Integer roles;
+	private Integer roles;*/
 
 }

@@ -30,9 +30,9 @@ public class AlktResource {
 	@GetMapping(produces = TEXT_PLAIN_VALUE)
 	@Operation(summary = "Get partyId", description = "Resource returns partyId for provided legalId")
 	@ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = TEXT_PLAIN_VALUE))
-	public ResponseEntity<String> getLegalId(String partyId) {
-		var legalId = alktService.getLegalId(partyId);
+	public ResponseEntity<Void> getLegalId() {
+		alktService.doSomething();
 
-		return ResponseEntity.ok(legalId);
+		return ResponseEntity.ok().build();
 	}
 }

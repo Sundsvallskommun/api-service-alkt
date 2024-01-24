@@ -1,13 +1,21 @@
 package se.sundsvall.alkt.integration.db.entity;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import se.sundsvall.alkt.integration.db.listener.PersistencePreventionListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,16 +23,50 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "Objekt", schema = "dbo", indexes = {
+@EntityListeners(PersistencePreventionListener.class)
+@Table(name = "Objekt", indexes = {
 		@Index(name = "IX_AgarID", columnList = "AgarID")
 })
-public class Object {
+public class ObjectEntity {
 	@Id
-	@Column(name = "ObjektID", nullable = false)
-	private Integer id;
+	@Column(name = "ObjektID", insertable = false, updatable = false)
+	private Integer objectId;
 
 	@Column(name = "AgarID")
 	private Integer agarID;
+
+	@OneToOne
+	@JoinColumn(name = "AgarID", referencedColumnName = "AgarID", insertable = false, updatable = false)
+	private OwnerEntity owner;
+
+	@OneToMany
+	@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID", insertable = false, updatable = false)
+	private List<ErrandEntity> errands;
+
+	@Size(max = 40)
+	@Column(name = "ServeringsNamn", length = 40, insertable = false, updatable = false)
+	private String serveringsNamn;
+
+	@Column(name = "AndradDatum", insertable = false, updatable = false, columnDefinition = "datetime")
+	private LocalDateTime andradDatum;
+
+	@Size(max = 15)
+	@Column(name = "TelefonNr1", length = 15, insertable = false, updatable = false)
+	private String telefonNr1;
+
+	@Column(name = "UpplagdDatum", insertable = false, updatable = false, columnDefinition = "datetime")
+	private LocalDateTime upplagdDatum;
+
+	//@Transient
+	@OneToOne
+	@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID")
+	@MapsId
+	private CurrentPermitEntity currentPermit;
+
+
+	////////////////////////////////////////////////7
+
+	/*
 
 	@Size(max = 20)
 	@Column(name = "RestaurangBeteckning", length = 20)
@@ -43,10 +85,6 @@ public class Object {
 	private String objektGrupp3;
 
 	@Size(max = 40)
-	@Column(name = "ServeringsNamn", length = 40)
-	private String serveringsNamn;
-
-	@Size(max = 40)
 	@Column(name = "ServeringsGAdress", length = 40)
 	private String serveringsGAdress;
 
@@ -58,9 +96,6 @@ public class Object {
 	@Column(name = "ServeringsPOrt", length = 25)
 	private String serveringsPOrt;
 
-	@Size(max = 15)
-	@Column(name = "TelefonNr1", length = 15)
-	private String telefonNr1;
 
 	@Size(max = 15)
 	@Column(name = "TelefonNr2", length = 15)
@@ -164,15 +199,12 @@ public class Object {
 	@Column(name = "UpplagdAv", length = 5)
 	private String upplagdAv;
 
-	@Column(name = "UpplagdDatum")
-	private Instant upplagdDatum;
+
 
 	@Size(max = 5)
 	@Column(name = "AndradAv", length = 5)
 	private String andradAv;
 
-	@Column(name = "AndradDatum")
-	private Instant andradDatum;
 
 	@Column(name = "BesokOrderDatum")
 	private Instant besokOrderDatum;
@@ -208,9 +240,6 @@ public class Object {
 	@Column(name = "GeoCode", length = 50)
 	private String geoCode;
 
-	@Size(max = 100)
-	@Column(name = "ObjBifogadfil", length = 100)
-	private String objBifogadfil;
 
 	@Size(max = 5)
 	@Column(name = "Belagenhet2", length = 5)
@@ -242,6 +271,6 @@ public class Object {
 
 	@Size(max = 2)
 	@Column(name = "Kategorikod", length = 2)
-	private String kategorikod;
+	private String kategorikod;*/
 
 }

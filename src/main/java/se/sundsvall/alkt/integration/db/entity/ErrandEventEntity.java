@@ -1,41 +1,66 @@
 package se.sundsvall.alkt.integration.db.entity;
 
-import java.time.Instant;
-import java.util.UUID;
+import java.time.LocalDateTime;
+
+import se.sundsvall.alkt.integration.db.listener.PersistencePreventionListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "Ärende_Händelser", schema = "dbo", indexes = {
+@EntityListeners(PersistencePreventionListener.class)
+@Table(name = "Ärende_Händelser", indexes = {
 		@Index(name = "IX_ArendeID", columnList = "ArendeID")
 })
-public class ErrandEvent {
+@ToString
+public class ErrandEventEntity {
 	@Id
-	@Column(name = "HandelseID", nullable = false)
+	@Column(name = "HandelseID", nullable = false, insertable = false, updatable = false)
 	private Integer id;
 
-	@Column(name = "ArendeID")
+	@Column(name = "ObjektID", insertable = false, updatable = false)
+	private Integer objektID;
+
+	@Column(name = "ArendeID", insertable = false, updatable = false)
 	private Integer arendeID;
 
+	@Size(max = 30)
+	@Column(name = "DiarieNr", length = 30, insertable = false, updatable = false)
+	private String diarieNr;
+
 	@Size(max = 5)
-	@Column(name = "HandelseTyp", length = 5)
+	@Column(name = "HandelseTyp", length = 5, insertable = false, updatable = false)
 	private String handelseTyp;
 
-	@Column(name = "HandelseDatumTid")
-	private Instant handelseDatumTid;
+	@Size(max = 200)
+	@Column(name = "Bifogadfil", length = 200, insertable = false, updatable = false)
+	private String bifogadfil;
 
-	@Size(max = 5)
+	@Column(name = "AndradDatum", insertable = false, updatable = false, columnDefinition = "datetime")
+	private LocalDateTime andradDatum;
+
+	@Column(name = "HandelseDatumTid", insertable = false, updatable = false, columnDefinition = "datetime")
+	private LocalDateTime handelseDatumTid;
+
+	@Column(name = "UpplagdDatum", insertable = false, updatable = false, columnDefinition = "datetime")
+	private LocalDateTime upplagdDatum;
+
+	//////////////////////////////////////
+
+
+
+
+	/*@Size(max = 5)
 	@Column(name = "Dokument", length = 5)
 	private String dokument;
 
@@ -55,22 +80,12 @@ public class ErrandEvent {
 	@Column(name = "UpplagdAv", length = 5)
 	private String upplagdAv;
 
-	@Column(name = "UpplagdDatum")
-	private Instant upplagdDatum;
 
 	@Size(max = 5)
 	@Column(name = "AndradAv", length = 5)
 	private String andradAv;
 
-	@Column(name = "AndradDatum")
-	private Instant andradDatum;
 
-	@Size(max = 200)
-	@Column(name = "Bifogadfil", length = 200)
-	private String bifogadfil;
-
-	@Column(name = "ObjektID")
-	private Integer objektID;
 
 	@Column(name = "VisaIObjektmapp")
 	private Boolean visaIObjektmapp;
@@ -87,9 +102,6 @@ public class ErrandEvent {
 	@Column(name = "HandelseNummer")
 	private Integer handelseNummer;
 
-	@Size(max = 30)
-	@Column(name = "DiarieNr", length = 30)
-	private String diarieNr;
 
 	@NotNull
 	@Column(name = "Sekretess", nullable = false)
@@ -99,6 +111,6 @@ public class ErrandEvent {
 	private UUID fileId;
 
 	@Column(name = "DocumentId")
-	private UUID documentId;
+	private UUID documentId;*/
 
 }

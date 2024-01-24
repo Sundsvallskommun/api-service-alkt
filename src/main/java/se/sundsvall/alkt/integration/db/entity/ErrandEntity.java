@@ -1,54 +1,78 @@
 package se.sundsvall.alkt.integration.db.entity;
+import java.time.LocalDateTime;
+import java.util.List;
 
-import java.time.Instant;
+import se.sundsvall.alkt.integration.db.listener.PersistencePreventionListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "Ärende", schema = "dbo", indexes = {
+@EntityListeners(PersistencePreventionListener.class)
+@Table(name = "Ärende", indexes = {
 		@Index(name = "IX_ObjektID", columnList = "ObjektID")
 })
-public class Errand {
+@ToString
+public class ErrandEntity {
 	@Id
-	@Column(name = "ArendeID", nullable = false)
-	private Integer id;
+	@Column(name = "ArendeID", nullable = false, insertable = false, updatable = false)
+	private Integer errandId;
+
+	@Size(max = 5)
+	@Column(name = "HandlaggarID", length = 5)
+	private String handlaggarID;
+
+	@OneToMany
+	@JoinColumn(name = "ArendeID", referencedColumnName = "ArendeID", insertable = false, updatable = false)
+	private List<ErrandEventEntity> events;
 
 	@Size(max = 30)
-	@Column(name = "DiarieNr", length = 30)
+	@Column(name = "DiarieNr", length = 30, insertable = false, updatable = false)
 	private String diarieNr;
 
-	@Column(name = "OppnandeDatum")
-	private Instant oppnandeDatum;
-
-	@Column(name = "AvslutsDatum")
-	private Instant avslutsDatum;
-
-	@Column(name = "AndradDatum")
-	private Instant andradDatum;
-
-	///////////////////////////////////
-	/*@Column(name = "ObjektID")
+	@Column(name = "ObjektID", insertable = false, updatable = false)
 	private Integer objektID;
 
-	@Column(name = "Dokumentantal")
+	@ManyToOne    //An errand may reference several objects
+	@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID", insertable = false, updatable = false)
+	private ObjectEntity object;
+
+	@Column(name = "OppnandeDatum", insertable = false, updatable = false, columnDefinition = "datetime")
+	private LocalDateTime oppnandeDatum;
+
+	@Column(name = "AvslutsDatum", insertable = false, updatable = false, columnDefinition = "datetime")
+	private LocalDateTime avslutsDatum;
+
+	@Column(name = "AndradDatum", insertable = false, updatable = false, columnDefinition = "datetime")
+	private LocalDateTime andradDatum;
+
+	@Column(name = "UpplagdDatum", insertable = false, updatable = false, columnDefinition = "datetime")
+	private LocalDateTime upplagdDatum;
+
+	///////////////////////////////////
+
+	/*@Column(name = "Dokumentantal")
 	private Integer dokumentantal;
 
 	@Size(max = 6)
 	@Column(name = "ArendeTyp", length = 6)
 	private String arendeTyp;
 
-	@Size(max = 5)
-	@Column(name = "HandlaggarID", length = 5)
-	private String handlaggarID;
+
 
 	@Size(max = 5)
 	@Column(name = "HandlaggarID2", length = 5)
@@ -223,8 +247,7 @@ public class Errand {
 	@Column(name = "UpplagdAv", length = 5)
 	private String upplagdAv;
 
-	@Column(name = "UpplagdDatum")
-	private Instant upplagdDatum;
+
 
 	@Size(max = 5)
 	@Column(name = "AndradAv", length = 5)

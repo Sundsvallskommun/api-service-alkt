@@ -1,29 +1,52 @@
 package se.sundsvall.alkt.integration.db.entity;
 
-import java.time.Instant;
-import java.util.UUID;
+import java.time.LocalDateTime;
+
+import se.sundsvall.alkt.integration.db.listener.PersistencePreventionListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "Gällande_Tillstånd", schema = "dbo")
-public class CurrentPermit {
+@EntityListeners(PersistencePreventionListener.class)
+@Table(name = "Gällande_Tillstånd")
+@ToString
+public class CurrentPermitEntity {
 
 	@EmbeddedId
 	private CurrentPermitId id;
 
-	@Column(name = "ObjektID")
+	/**
+	 * Is unique in the DB but is not a primary key so we need to create a composite key {@link CurrentPermitId}
+	 */
+	@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID")
+	@Column(name = "ObjektID", insertable = false, updatable = false)
 	private Integer objektID;
 
-	@Size(max = 30)
+	@Column(name = "AndradDatum", insertable = false, updatable = false, columnDefinition = "datetime")
+	private LocalDateTime andradDatum;
+
+	@Column(name = "Utfardande_Datum", insertable = false, updatable = false, columnDefinition = "datetime")
+	private LocalDateTime utfardandeDatum;
+
+	@Column(name = "UpplagdDatum", insertable = false, updatable = false, columnDefinition = "datetime")
+	private LocalDateTime upplagdDatum;
+
+	////////////////////////////////////////
+
+
+	/*@Size(max = 30)
 	@Column(name = "Ritning", length = 30)
 	private String ritning;
 
@@ -42,8 +65,6 @@ public class CurrentPermit {
 	@Column(name = "Ersatter_Diarienr", length = 20)
 	private String ersatterDiarienr;
 
-	@Column(name = "Utfardande_Datum")
-	private Instant utfardandeDatum;
 
 	@Size(max = 20)
 	@Column(name = "Utfardande_Diarienr", length = 20)
@@ -53,15 +74,11 @@ public class CurrentPermit {
 	@Column(name = "UpplagdAv", length = 5)
 	private String upplagdAv;
 
-	@Column(name = "UpplagdDatum")
-	private Instant upplagdDatum;
 
 	@Size(max = 5)
 	@Column(name = "AndradAv", length = 5)
 	private String andradAv;
 
-	@Column(name = "AndradDatum")
-	private Instant andradDatum;
 
 	@Size(max = 6)
 	@Column(name = "GTServeringsPNr", length = 6)
@@ -75,5 +92,5 @@ public class CurrentPermit {
 	private Integer beslutsID;
 
 	@Column(name = "DocumentId")
-	private UUID documentId;
+	private UUID documentId;*/
 }
