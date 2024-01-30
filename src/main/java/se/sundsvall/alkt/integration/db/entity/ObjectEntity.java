@@ -39,8 +39,8 @@ public class ObjectEntity {
 	@JoinColumn(name = "AgarID", referencedColumnName = "AgarID", insertable = false, updatable = false)
 	private OwnerEntity owner;
 
-	@OneToMany
-	@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID", insertable = false, updatable = false)
+	@OneToMany(mappedBy = "object", fetch = FetchType.LAZY)
+	//@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID", insertable = false, updatable = false)
 	private List<ErrandEntity> errands;
 
 	@Size(max = 40)
@@ -56,13 +56,6 @@ public class ObjectEntity {
 
 	@Column(name = "UpplagdDatum", insertable = false, updatable = false, columnDefinition = "datetime")
 	private LocalDateTime upplagdDatum;
-
-	//@Transient
-	@OneToOne
-	@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID")
-	@MapsId
-	private CurrentPermitEntity currentPermit;
-
 
 	////////////////////////////////////////////////7
 

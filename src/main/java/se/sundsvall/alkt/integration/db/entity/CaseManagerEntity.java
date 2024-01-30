@@ -26,7 +26,6 @@ import lombok.ToString;
 @Entity
 @EntityListeners(PersistencePreventionListener.class)
 @Table(name = "Handläggare")
-@ToString
 public class CaseManagerEntity {
 
 	@Id
@@ -41,6 +40,9 @@ public class CaseManagerEntity {
 	@Size(max = 50)
 	@Column(name = "OrgEnhet", length = 50, insertable = false, updatable = false)
 	private String orgEnhet;
+
+	@OneToMany(mappedBy = "caseManager")
+	private List<ErrandEntity> errandEntities;
 
 
 	/////////////////////////////////////////////////////

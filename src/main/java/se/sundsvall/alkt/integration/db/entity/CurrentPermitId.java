@@ -9,8 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 @EqualsAndHashCode
 @Embeddable
 public class CurrentPermitId implements Serializable {
@@ -18,12 +18,12 @@ public class CurrentPermitId implements Serializable {
 	@Column(name = "ObjektID")
 	private Integer objektId;
 
-	@Column(name = "AndradDatum", insertable = false, updatable = false, columnDefinition = "datetime")
+	/*@Column(name = "AndradDatum", insertable = false, updatable = false, columnDefinition = "datetime")
 	private LocalDateTime andradDatum;
 
 	@Column(name = "Utfardande_Datum", insertable = false, updatable = false, columnDefinition = "datetime")
 	private LocalDateTime utfardandeDatum;
 
 	@Column(name = "UpplagdDatum", insertable = false, updatable = false, columnDefinition = "datetime")
-	private LocalDateTime upplagdDatum;
+	private LocalDateTime upplagdDatum;*/
 }

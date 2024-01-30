@@ -22,7 +22,6 @@ import lombok.ToString;
 @Table(name = "Ärende_Händelser", indexes = {
 		@Index(name = "IX_ArendeID", columnList = "ArendeID")
 })
-@ToString
 public class ErrandEventEntity {
 	@Id
 	@Column(name = "HandelseID", nullable = false, insertable = false, updatable = false)

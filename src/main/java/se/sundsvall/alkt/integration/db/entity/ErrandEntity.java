@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -26,7 +27,6 @@ import lombok.ToString;
 @Table(name = "Ärende", indexes = {
 		@Index(name = "IX_ObjektID", columnList = "ObjektID")
 })
-@ToString
 public class ErrandEntity {
 	@Id
 	@Column(name = "ArendeID", nullable = false, insertable = false, updatable = false)
@@ -40,6 +40,14 @@ public class ErrandEntity {
 	@JoinColumn(name = "ArendeID", referencedColumnName = "ArendeID", insertable = false, updatable = false)
 	private List<ErrandEventEntity> events;
 
+	@ManyToOne
+	@JoinColumn(name = "HandlaggarID", referencedColumnName = "HandlaggarID", insertable = false, updatable = false)
+	private CaseManagerEntity caseManager;
+
+	@Size(max = 6)
+	@Column(name = "ArendeTyp", length = 6)
+	private String arendeTyp;
+
 	@Size(max = 30)
 	@Column(name = "DiarieNr", length = 30, insertable = false, updatable = false)
 	private String diarieNr;
@@ -48,7 +56,7 @@ public class ErrandEntity {
 	private Integer objektID;
 
 	@ManyToOne    //An errand may reference several objects
-	@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID", insertable = false, updatable = false)
+	@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID", nullable = false, insertable = false, updatable = false)
 	private ObjectEntity object;
 
 	@Column(name = "OppnandeDatum", insertable = false, updatable = false, columnDefinition = "datetime")
@@ -68,9 +76,7 @@ public class ErrandEntity {
 	/*@Column(name = "Dokumentantal")
 	private Integer dokumentantal;
 
-	@Size(max = 6)
-	@Column(name = "ArendeTyp", length = 6)
-	private String arendeTyp;
+
 
 
 

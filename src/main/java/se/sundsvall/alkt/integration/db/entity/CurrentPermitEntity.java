@@ -9,6 +9,7 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -21,7 +22,6 @@ import lombok.ToString;
 @Entity
 @EntityListeners(PersistencePreventionListener.class)
 @Table(name = "Gällande_Tillstånd")
-@ToString
 public class CurrentPermitEntity {
 
 	@EmbeddedId
@@ -30,7 +30,7 @@ public class CurrentPermitEntity {
 	/**
 	 * Is unique in the DB but is not a primary key so we need to create a composite key {@link CurrentPermitId}
 	 */
-	@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID")
+	//@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID", insertable = false, updatable = false)
 	@Column(name = "ObjektID", insertable = false, updatable = false)
 	private Integer objektID;
 

@@ -9,6 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,9 +17,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @Embeddable
-@ToString
+@EqualsAndHashCode
 public class PlainTextId implements Serializable {
 
+	/**
+	 * kodtyp: A is for Errands (Ärende)
+	 * kodtyp: D is for ErrandEvents (Ärende_Händelser)
+	 */
 	@Size(max = 2)
 	@NotNull
 	@Column(name = "Kodtyp", nullable = false, length = 2)
@@ -28,18 +33,4 @@ public class PlainTextId implements Serializable {
 	@NotNull
 	@Column(name = "Kod", nullable = false, length = 5)
 	private String kod;
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-		PlainTextId entity = (PlainTextId) o;
-		return Objects.equals(this.kod, entity.getKod()) &&
-				Objects.equals(this.kodtyp, entity.getKodtyp());
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(kod, kodtyp);
-	}
 }

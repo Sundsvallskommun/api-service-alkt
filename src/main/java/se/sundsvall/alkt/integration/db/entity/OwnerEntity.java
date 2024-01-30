@@ -22,7 +22,6 @@ import lombok.ToString;
 @Entity
 @EntityListeners(PersistencePreventionListener.class)
 @Table(name = "Ägare")
-@ToString
 public class OwnerEntity {
 
 	@Id
