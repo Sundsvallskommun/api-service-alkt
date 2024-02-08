@@ -1,64 +1,72 @@
 package se.sundsvall.alkt.service;
 
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
 import se.sundsvall.alkt.api.model.Owner;
-import se.sundsvall.alkt.integration.db.entity.ErrandEntity;
-import se.sundsvall.alkt.integration.db.entity.ErrandEventEntity;
+import se.sundsvall.alkt.integration.db.entity.CaseDecisionEntity;
+import se.sundsvall.alkt.integration.db.entity.CaseEntity;
+import se.sundsvall.alkt.integration.db.entity.CaseEventEntity;
 import se.sundsvall.alkt.integration.db.entity.ObjectEntity;
 import se.sundsvall.alkt.integration.db.entity.OwnerEntity;
-import se.sundsvall.alkt.integration.db.entity.PlainTextEntity;
 
 @Component
 public class Mapper {
 
-	public Owner mapToResponse(OwnerEntity ownerEntity) {
-		var build = Owner.builder()
-				.withOrganizationNumber(ownerEntity.getOrganisationsNr())
+	public Owner mapToOwnerResponse(OwnerEntity ownerEntity) {
+		return Owner.builder()
+				.withOrganizationNumber(ownerEntity.getOrganizationNumber())
 				.withOrganizationName(ownerEntity.getBolagsnamn())
-				.withObjectList(ownerEntity.getObjects().stream()
+				.withObjects(ownerEntity.getObjects().stream()
 						.map(this::mapToAlktObject)
 						.toList())
 				.build();
-		return build;
 	}
 
-	public Owner.AlktObject mapToAlktObject(ObjectEntity objectEntity) {
+	private Owner.AlktObject mapToAlktObject(ObjectEntity objectEntity) {
 		return Owner.AlktObject.builder()
-				.withObjectId(objectEntity.getObjectId())
-				.withName(objectEntity.getServeringsNamn())
-				.withChangedDate(objectEntity.getAndradDatum())
-				.withPostedDate(objectEntity.getUpplagdDatum())
-				.withErrandsList(objectEntity.getErrands().stream()
-						.map(this::mapToErrand)
+				.withName(objectEntity.getServingName())
+				.withChangedDate(objectEntity.getChanged())
+				.withPostedDate(objectEntity.getPosted())
+				.withCases(objectEntity.getCases().stream()
+						.map(this::mapToCase)
 						.toList())
 				.build();
 	}
 
-	public Owner.AlktObject.Errand mapToErrand(ErrandEntity errandEntity) {
-		return Owner.AlktObject.Errand.builder()
-				.withErrandType(errandEntity.getArendeTyp())
-				.withCaseManagerId(errandEntity.getHandlaggarID())
-				.withDiarieNumber(errandEntity.getDiarieNr())
-				.withChanged(errandEntity.getAndradDatum())
-				.withClosed(errandEntity.getAvslutsDatum())
-				.withOpened(errandEntity.getOppnandeDatum())
-				.withPosted(errandEntity.getUpplagdDatum())
-				.withEvents(errandEntity.getEvents().stream()
+	private Owner.AlktObject.Case mapToCase(CaseEntity caseEntity) {
+		return Owner.AlktObject.Case.builder()
+				.withCaseId(caseEntity.getCaseId())
+				.withCaseType(caseEntity.getCaseType())
+				.withDiarieNumber(caseEntity.getDiarieNumber())
+				.withChanged(caseEntity.getChanged())
+				.withClosed(caseEntity.getClosed())
+				.withOpened(caseEntity.getOpened())
+				.withPosted(caseEntity.getPosted())
+				.withEvents(caseEntity.getEvents().stream()
 						.map(this::mapToEvent)
 						.toList())
+				.withDecision(Optional.ofNullable(caseEntity.getDecision())
+						.map(this::mapToDecision)
+						.orElse(null))
+				.withIsOpen(caseEntity.getClosed() == null)
 				.build();
 	}
 
-	public Owner.AlktObject.Errand.Event mapToEvent(ErrandEventEntity errandEntity) {
-		return Owner.AlktObject.Errand.Event.builder()
-				.withChanged(errandEntity.getAndradDatum())
-				.withPosted(errandEntity.getUpplagdDatum())
-				.withEventDate(errandEntity.getHandelseDatumTid())
-				.withDiarieNumber(errandEntity.getDiarieNr())
-				.withEventType(errandEntity.getHandelseTyp())
+	private Owner.AlktObject.Case.Event mapToEvent(CaseEventEntity caseEntity) {
+		return Owner.AlktObject.Case.Event.builder()
+				.withChanged(caseEntity.getChanged())
+				.withPosted(caseEntity.getPosted())
+				.withEventDate(caseEntity.getEvent())
+				.withEventType(caseEntity.getEventType())
+				.build();
+	}
+
+	private Owner.AlktObject.Case.Decision mapToDecision(CaseDecisionEntity decisionEntity) {
+		return Owner.AlktObject.Case.Decision.builder()
+				.withDecisionType(decisionEntity.getDecisionType())
+				.withDecisionDate(decisionEntity.getDecision())
 				.build();
 	}
 }

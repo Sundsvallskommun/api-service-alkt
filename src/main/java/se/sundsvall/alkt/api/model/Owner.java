@@ -3,6 +3,8 @@ package se.sundsvall.alkt.api.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -18,89 +20,103 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Owner {
 
-	@Schema(description = "organizationNumber", example = "1234567890")
+	@Schema(description = "Organization number", example = "1234567890")
 	private String organizationNumber;
 
-	@Schema(description = "organizationName", example = "Sundsvalls kommun")
+	@Schema(description = "Name of the organization", example = "Sundsvalls kommun")
 	private String organizationName;
 
-	@ArraySchema(schema = @Schema(description = "objectList", implementation = AlktObject.class))
-	private List<AlktObject> objectList;
+	@ArraySchema(schema = @Schema(description = "List of all establishments / objects", implementation = AlktObject.class))
+	private List<AlktObject> objects;
 
 	@Getter
 	@Setter
 	@Builder(setterPrefix = "with")
 	public static class AlktObject {
 
-		@Schema(description = "objectId", example = "123")
-		private int objectId;
-
-		@Schema(description = "name of the object", example = "Sundsvalls kommuns bar")
+		@Schema(description = "Name of the establishment / object", example = "Sundsvalls kommuns bar")
 		private String name;
 
-		@Schema(description = "postedDate", example = "2021-01-01T00:00:00")
+		@Schema(description = "When the establisment /object was first posted", example = "2021-01-01T00:00:00")
 		private LocalDateTime postedDate;
 
-		@Schema(description = "changedDate", example = "2021-01-01T00:00:00")
+		@Schema(description = "When the establishment / object changed", example = "2021-01-01T00:00:00")
 		private LocalDateTime changedDate;
 
-		@ArraySchema(schema = @Schema(description = "errands", implementation = Errand.class))
-		private List<Errand> errandsList;
+		@ArraySchema(schema = @Schema(description = "All cases on an object/establishment", implementation = Case.class))
+		private List<Case> cases;
 
 		@Getter
 		@Setter
 		@Builder(setterPrefix = "with")
-		public static class Errand {
+		public static class Case {
 
-			@Schema(description = "caseManagerId", example = "Donald")
-			private String caseManagerId;
+			@Schema(description = "Case number", example = "123")
+			private int caseId;
 
-			@Schema(description = "diarieNumber", example = "1234567890")
+			@Schema(description = "Diarie number", example = "1234567890")
 			private String diarieNumber;
 
-			@Schema(description = "errandType", example = "REMSK")
-			private String errandType;
+			@JsonIgnore	//Not needed in reponse but when decorating the case Description
+			private String caseType;
 
-			@Schema(description = "errandTypeDescription", example = "Nytt tillstånd, allmänheten")
-			private String errandTypeDescription;
+			@Schema(description = "If the case open or closed", example = "true")
+			private boolean isOpen;
 
-			@Schema(description = "changed date", example = "2021-01-01T00:00:00")
+			@Schema(description = "Case Description", example = "Nytt tillstånd, allmänheten")
+			private String caseDescription;
+
+			@Schema(description = "When the case last changed", example = "2021-01-01T00:00:00")
 			private LocalDateTime changed;
 
-			@Schema(description = "closed date", example = "2021-01-01T00:00:00")
+			@Schema(description = "When the case was closed", example = "2021-01-01T00:00:00")
 			private LocalDateTime closed;
 
-			@Schema(description = "opened date", example = "2021-01-01T00:00:00")
+			@Schema(description = "When the case was opened", example = "2021-01-01T00:00:00")
 			private LocalDateTime opened;
 
-			@Schema(description = "posted date", example = "2021-01-01T00:00:00")
+			@Schema(description = "When the case was posted", example = "2021-01-01T00:00:00")
 			private LocalDateTime posted;
 
-			@ArraySchema(schema = @Schema(description = "events", implementation = Event.class))
+			@ArraySchema(schema = @Schema(description = "List of events on a case", implementation = Event.class))
 			private List<Event> events;
+
+			@Schema(description = "A Decision on a case", implementation = Decision.class)
+			private Decision decision;
 
 			@Getter
 			@Setter
 			@Builder(setterPrefix = "with")
 			public static class Event {
-				@Schema(description = "eventType", example = "REMSK")
+				@JsonIgnore //Not needed in reponse but when decorating the event Description
 				private String eventType;
 
-				@Schema(description = "eventTypeDescription", example = "Remiss till skattemyndigheten")
+				@Schema(description = "Description of the event", example = "Remiss till skattemyndigheten")
 				private String eventTypeDescription;
 
-				@Schema(description = "diarieNumber", example = "1234567890")
-				private String diarieNumber;
-
-				@Schema(description = "changed date", example = "2021-01-01T00:00:00")
+				@Schema(description = "When the event changed", example = "2021-01-01T00:00:00")
 				private LocalDateTime changed;
 
-				@Schema(description = "eventDate", example = "2021-01-01T00:00:00")
+				@Schema(description = "When the event happened", example = "2021-01-01T00:00:00")
 				private LocalDateTime eventDate;
 
-				@Schema(description = "posted date", example = "2021-01-01T00:00:00")
+				@Schema(description = "When the event was posted", example = "2021-01-01T00:00:00")
 				private LocalDateTime posted;
+			}
 
+			@Getter
+			@Setter
+			@Builder(setterPrefix = "with")
+			public static class Decision {
+
+				@JsonIgnore //Not needed in reponse but when decorating the decision Description
+				private String decisionType;
+
+				@Schema(description = "A description of which decision was made", example = "Tillstånd allmänhet")
+				private String decisionDescription;
+
+				@Schema(description = "When the decision was made", example = "2021-01-01T00:00:00")
+				private LocalDateTime decisionDate;
 			}
 		}
 	}

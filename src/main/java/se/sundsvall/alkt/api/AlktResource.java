@@ -1,5 +1,7 @@
 package se.sundsvall.alkt.api;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/alkt")
-@Tag(name = "Alkt", description = "Alkt operations")
+@Tag(name = "Alkt")
 public class AlktResource {
 
 	private final AlktService alktService;
@@ -28,8 +30,8 @@ public class AlktResource {
 		this.alktService = alktService;
 	}
 
+	//TODO WIP will be replaced, hence no tests.
 	@Operation(
-			summary = "Get alkt information",
 			responses = {
 					@ApiResponse(responseCode = "200", description = "Successful Operation", useReturnTypeSchema = true),
 					@ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(oneOf = { Problem.class, ConstraintViolationProblem.class }))),
@@ -38,8 +40,8 @@ public class AlktResource {
 			}
 	)
 	@GetMapping(path = "/{orgNo}")
-	ResponseEntity<Owner> getLegalId(@PathVariable String orgNo) {
-		var owner = alktService.doSomething(orgNo);
+	ResponseEntity<List<Owner>> getLegalId(@PathVariable String orgNo) {
+		var owner = alktService.getOwnersAndCasesByOrganizationNumber(orgNo);
 
 		return ResponseEntity.ok(owner);
 	}

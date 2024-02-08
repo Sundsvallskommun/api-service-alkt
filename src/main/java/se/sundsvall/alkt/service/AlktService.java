@@ -1,24 +1,12 @@
 package se.sundsvall.alkt.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import se.sundsvall.alkt.api.model.Owner;
-import se.sundsvall.alkt.configuration.LocalDateTimeTypeAdapter;
-import se.sundsvall.alkt.integration.db.CurrentPermitRepository;
 import se.sundsvall.alkt.integration.db.OwnerRepository;
 import se.sundsvall.alkt.integration.db.PlainTextRepository;
-import se.sundsvall.alkt.integration.db.entity.ErrandEntity;
-import se.sundsvall.alkt.integration.db.entity.ObjectEntity;
-import se.sundsvall.alkt.integration.db.entity.OwnerEntity;
 import se.sundsvall.alkt.integration.db.entity.PlainTextEntity;
 import se.sundsvall.alkt.integration.party.PartyClient;
 
@@ -27,71 +15,63 @@ import generated.se.sundsvall.party.PartyType;
 @Service
 public class AlktService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AlktService.class);
-	private final Gson gson = new GsonBuilder()
-			.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter())
-			.setPrettyPrinting()
-			.create();
-
 	private final PartyClient partyClient;
 	private final OwnerRepository ownerRepository;
-	private final CurrentPermitRepository currentPermitRepository;
 	private final PlainTextRepository plainTextRepository;
 	private final Mapper mapper;
 
-	public AlktService(PartyClient partyClient, OwnerRepository ownerRepository, CurrentPermitRepository currentPermitRepository,
-			PlainTextRepository plainTextRepository, Mapper mapper) {
+	public AlktService(PartyClient partyClient, OwnerRepository ownerRepository, PlainTextRepository plainTextRepository, Mapper mapper) {
 		this.partyClient = partyClient;
 		this.ownerRepository = ownerRepository;
-		this.currentPermitRepository = currentPermitRepository;
 		this.plainTextRepository = plainTextRepository;
 		this.mapper = mapper;
 	}
 
 	public String getLegalId(String partyId) {
-		var legalId = partyClient.getLegalId(PartyType.PRIVATE, partyId);
+		var legalId = partyClient.getLegalId(PartyType.ENTERPRISE, partyId);
 
 		return legalId.orElseThrow(() -> new RuntimeException("Could not find legalId for partyId: " + partyId));
 	}
 
-	public Owner doSomething(String orgNumber) {
-		var owner = ownerRepository.findByOrOrganisationsNr(orgNumber);
+	//TODO WIP, will integrate with party in another task.
+	public List<Owner> getOwnersAndCasesByOrganizationNumber(String orgNumber) {
+		var owners = ownerRepository.findByOrganizationNumber(orgNumber);
 
-		/*for (ObjectEntity objectEntity : owner.getObjects()) {
-			for (ErrandEntity errand : objectEntity.getErrands()) {
-				var arendeTyp = errand.getArendeTyp();
-				var byKodAndErrands = plainTextRepository.findByKodAndErrands(arendeTyp);
-				var byKodAndErrandEvents = plainTextRepository.findByKodAndErrandEvents(arendeTyp);
+		var mappedOwners = owners.stream()
+				.map(mapper::mapToOwnerResponse)
+				.toList();
 
-				LOG.info("ÄrendeTyp: {}, mappas till: {}", arendeTyp, byKodAndErrands);
-				LOG.info("Event: {}, mappas till: {}", arendeTyp, byKodAndErrandEvents);
-			}
-		}*/
+		mappedOwners.forEach(owner -> owner.getObjects().stream()
+				.flatMap(alktObject -> alktObject.getCases().stream())
+				.forEach(aCase -> {
+					addCaseDescription(aCase);
+					addDecisionDescriptionToCase(aCase.getDecision());
+					aCase.getEvents().forEach(this::addEventDescription);
+				}));
 
-
-		var ownerResponse = mapper.mapToResponse(owner);
-
-		ownerResponse.getObjectList().stream()
-			.flatMap(alktObject -> alktObject.getErrandsList().stream())
-			.forEach(errand -> {
-				addPlainTextToErrand(errand);
-				errand.getEvents().forEach(this::addPlainTextToEvent);
-			});
-
-		return ownerResponse;
+		return mappedOwners;
 	}
 
-	public void addPlainTextToErrand(Owner.AlktObject.Errand errand) {
-		var errandType = errand.getErrandType();
-		var byKodAndErrands = plainTextRepository.findByKodAndErrands(errandType);
+	private void addCaseDescription(Owner.AlktObject.Case aCase) {
+		var caseType = aCase.getCaseType();
+		var caseDescription = plainTextRepository.findDescriptionForCase(caseType);
 
-		errand.setErrandTypeDescription(byKodAndErrands.map(PlainTextEntity::getKlartext).orElse(""));
+		aCase.setCaseDescription(caseDescription.map(PlainTextEntity::getPlainText).orElse(null));
 	}
 
-	public void addPlainTextToEvent(Owner.AlktObject.Errand.Event event) {
+	private void addEventDescription(Owner.AlktObject.Case.Event event) {
 		var eventType = event.getEventType();
-		var byKodAndErrandEvents = plainTextRepository.findByKodAndErrandEvents(eventType);
+		var eventDescription = plainTextRepository.findDescriptionForEvent(eventType);
+		event.setEventTypeDescription(eventDescription.map(PlainTextEntity::getPlainText).orElse(null));
+	}
 
-		event.setEventTypeDescription(byKodAndErrandEvents.map(PlainTextEntity::getKlartext).orElse(""));
+	private void addDecisionDescriptionToCase(Owner.AlktObject.Case.Decision decision) {
+		//Not all cases have a decision
+		if (decision != null) {
+			var decisionType = decision.getDecisionType();
+			var byKodAndDecision = plainTextRepository.findDescriptionForDecision(decisionType);
+
+			decision.setDecisionDescription(byKodAndDecision.map(PlainTextEntity::getPlainText).orElse(null));
+		}
 	}
 }

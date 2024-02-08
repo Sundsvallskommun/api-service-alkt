@@ -1,7 +1,6 @@
 package se.sundsvall.alkt.integration.party;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -29,6 +28,7 @@ import se.sundsvall.dept44.configuration.feign.decoder.ProblemErrorDecoder;
 
 import feign.codec.ErrorDecoder;
 
+//@DataJpaTest
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("junit")
 class PartyConfigurationTest {

@@ -7,9 +7,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import se.sundsvall.dept44.ServiceApplication;
 
-@EnableCaching
 @EnableFeignClients
 @ServiceApplication
+@EnableCaching
 public class Application {
 	public static void main(final String... args) {
 		run(Application.class, args);

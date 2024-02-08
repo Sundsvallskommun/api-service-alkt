@@ -1,269 +1,77 @@
 package se.sundsvall.alkt.integration.db.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import se.sundsvall.alkt.integration.db.listener.PersistencePreventionListener;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder(setterPrefix = "with")
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@EntityListeners(PersistencePreventionListener.class)
 @Table(name = "Objekt", indexes = {
 		@Index(name = "IX_AgarID", columnList = "AgarID")
 })
-public class ObjectEntity {
+public class ObjectEntity implements Serializable {
+
 	@Id
-	@Column(name = "ObjektID", insertable = false, updatable = false)
+	@Column(name = "ObjektID")
 	private Integer objectId;
 
-	@Column(name = "AgarID")
-	private Integer agarID;
+	@Column(name = "AgarID", insertable=false, updatable=false)
+	private Integer ownerId;
 
-	@OneToOne
-	@JoinColumn(name = "AgarID", referencedColumnName = "AgarID", insertable = false, updatable = false)
+	@ManyToOne
+	@JoinColumn(name = "AgarID", referencedColumnName = "AgarID")
 	private OwnerEntity owner;
 
-	@OneToMany(mappedBy = "object", fetch = FetchType.LAZY)
-	//@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID", insertable = false, updatable = false)
-	private List<ErrandEntity> errands;
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ObjektID", referencedColumnName = "ObjektID")
+	private List<CaseEntity> cases;
 
 	@Size(max = 40)
-	@Column(name = "ServeringsNamn", length = 40, insertable = false, updatable = false)
-	private String serveringsNamn;
-
-	@Column(name = "AndradDatum", insertable = false, updatable = false, columnDefinition = "datetime")
-	private LocalDateTime andradDatum;
-
-	@Size(max = 15)
-	@Column(name = "TelefonNr1", length = 15, insertable = false, updatable = false)
-	private String telefonNr1;
-
-	@Column(name = "UpplagdDatum", insertable = false, updatable = false, columnDefinition = "datetime")
-	private LocalDateTime upplagdDatum;
-
-	////////////////////////////////////////////////7
-
-	/*
-
-	@Size(max = 20)
-	@Column(name = "RestaurangBeteckning", length = 20)
-	private String restaurangBeteckning;
-
-	@Size(max = 6)
-	@Column(name = "ObjektGrupp1", length = 6)
-	private String objektGrupp1;
-
-	@Size(max = 50)
-	@Column(name = "ObjektGrupp2", length = 50)
-	private String objektGrupp2;
-
-	@Size(max = 50)
-	@Column(name = "ObjektGrupp3", length = 50)
-	private String objektGrupp3;
-
-	@Size(max = 40)
-	@Column(name = "ServeringsGAdress", length = 40)
-	private String serveringsGAdress;
-
-	@Size(max = 6)
-	@Column(name = "ServeringsPNr", length = 6)
-	private String serveringsPNr;
-
-	@Size(max = 25)
-	@Column(name = "ServeringsPOrt", length = 25)
-	private String serveringsPOrt;
-
-
-	@Size(max = 15)
-	@Column(name = "TelefonNr2", length = 15)
-	private String telefonNr2;
-
-	@Size(max = 15)
-	@Column(name = "FaxNr", length = 15)
-	private String faxNr;
-
-	@Size(max = 40)
-	@Column(name = "Email", length = 40)
-	private String email;
-
-	@Size(max = 5)
-	@Column(name = "OmradesBeteckning", length = 5)
-	private String omradesBeteckning;
-
-	@Size(max = 5)
-	@Column(name = "AdministrativtOmrade", length = 5)
-	private String administrativtOmrade;
-
-	@Size(max = 40)
-	@Column(name = "Fastighetsagare", length = 40)
-	private String fastighetsagare;
-
-	@Size(max = 40)
-	@Column(name = "HuvudMalgrupp", length = 40)
-	private String huvudMalgrupp;
-
-	@Size(max = 5)
-	@Column(name = "AntalPersoner", length = 5)
-	private String antalPersoner;
-
-	@Size(max = 5)
-	@Column(name = "AntalSittplatser", length = 5)
-	private String antalSittplatser;
-
-	@Size(max = 3)
-	@Column(name = "AntalToaletter", length = 3)
-	private String antalToaletter;
-
-	@Size(max = 3)
-	@Column(name = "AntalUrinoarer", length = 3)
-	private String antalUrinoarer;
-
-	@Size(max = 5)
-	@Column(name = "VolymOl", length = 5)
-	private String volymOl;
-
-	@Size(max = 5)
-	@Column(name = "VolymStol", length = 5)
-	private String volymStol;
-
-	@Size(max = 5)
-	@Column(name = "VolymVin", length = 5)
-	private String volymVin;
-
-	@Size(max = 5)
-	@Column(name = "VolymSprit", length = 5)
-	private String volymSprit;
-
-	@Size(max = 8000)
-	@Column(name = "ObjektFritext", length = 8000)
-	private String objektFritext;
-
-	@Column(name = "GTillstandDoc")
-	private Integer gTillstandDoc;
-
-	@Column(name = "LokalID")
-	private Integer lokalID;
-
-	@Column(name = "Omsattning")
-	private Integer omsattning;
-
-	@Column(name = "Senastandrat")
-	private Integer senastandrat;
-
-	@Column(name = "TillsbesokDoc")
-	private Integer tillsbesokDoc;
-
-	@Size(max = 3)
-	@Column(name = "TillsynsAvgiftKlass", length = 3)
-	private String tillsynsAvgiftKlass;
-
-	@Size(max = 6)
-	@Column(name = "TillsynsGrupp", length = 6)
-	private String tillsynsGrupp;
-
-	@Column(name = "TillsynsIntervall")
-	private Integer tillsynsIntervall;
-
-	@NotNull
-	@Column(name = "BesokOrder", nullable = false)
-	private Boolean besokOrder = false;
-
-	@Size(max = 120)
-	@Column(name = "Notering", length = 120)
-	private String notering;
-
-	@Size(max = 5)
-	@Column(name = "UpplagdAv", length = 5)
-	private String upplagdAv;
-
-
-
-	@Size(max = 5)
-	@Column(name = "AndradAv", length = 5)
-	private String andradAv;
-
-
-	@Column(name = "BesokOrderDatum")
-	private Instant besokOrderDatum;
-
-	@Size(max = 2000)
-	@Column(name = "BesokOrderText", length = 2000)
-	private String besokOrderText;
-
-	@Size(max = 5)
-	@Column(name = "Kassaregister", length = 5)
-	private String kassaregister;
-
-	@Size(max = 25)
-	@Column(name = "WebLosen", length = 25)
-	private String webLosen;
-
-	@Column(name = "UndantaFranWeb")
-	private Boolean undantaFranWeb;
-
-	@Size(max = 255)
-	@Column(name = "WebbAdress")
-	private String webbAdress;
-
-	@Size(max = 5)
-	@Column(name = "Belagenhet", length = 5)
-	private String belagenhet;
-
-	@NotNull
-	@Column(name = "ForsaljningsStalle", nullable = false)
-	private Boolean forsaljningsStalle = false;
-
-	@Size(max = 50)
-	@Column(name = "GeoCode", length = 50)
-	private String geoCode;
-
-
-	@Size(max = 5)
-	@Column(name = "Belagenhet2", length = 5)
-	private String belagenhet2;
-
-	@Size(max = 5)
-	@Column(name = "Belagenhet3", length = 5)
-	private String belagenhet3;
-
-	@Column(name = "IntegKundDatum")
-	private Instant integKundDatum;
-
-	@Column(name = "DispensRestRapp")
-	private Boolean dispensRestRapp;
-
-	@Size(max = 100)
-	@Column(name = "ObjBifogadfil2", length = 100)
-	private String objBifogadfil2;
-
-	@Column(name = "msrepl_tran_version")
-	private Integer msreplTranVersion;
-
-	@Size(max = 5)
-	@Column(name = "Belagenhet4", length = 5)
-	private String belagenhet4;
-
-	@Column(name = "AgareFrom")
-	private Instant agareFrom;
-
-	@Size(max = 2)
-	@Column(name = "Kategorikod", length = 2)
-	private String kategorikod;*/
-
+	@Column(name = "ServeringsNamn", length = 40)
+	private String servingName;
+
+	@Column(name = "AndradDatum", columnDefinition = "datetime")
+	private LocalDateTime changed;
+
+	@Column(name = "UpplagdDatum", columnDefinition = "datetime")
+	private LocalDateTime posted;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof ObjectEntity that)) return false;
+		return Objects.equals(objectId, that.objectId)
+				&& Objects.equals(ownerId, that.ownerId)
+				&& Objects.equals(owner, that.owner)
+				&& Objects.equals(cases, that.cases)
+				&& Objects.equals(servingName, that.servingName)
+				&& Objects.equals(changed, that.changed)
+				&& Objects.equals(posted, that.posted);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(objectId, ownerId, owner, cases, servingName, changed, posted);
+	}
 }
