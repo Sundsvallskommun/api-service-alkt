@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import se.sundsvall.alkt.integration.db.entity.PlainTextEntity;
@@ -22,16 +22,16 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
  */
 @Transactional(readOnly = true)
 @CircuitBreaker(name = "plainTextRepository")
-public interface PlainTextRepository extends JpaRepository<PlainTextEntity, PlainTextId> {
+public interface PlainTextRepository extends Repository<PlainTextEntity, PlainTextId> {
 
 	/**
 	 * Find all PlainTextEntity by kod and kodtyp
 	 * The plainTextId is a composite key of kod and kodtyp
-	 * @param kod the "kod" for the PlainTextEntity
-	 * @param kodtyp the "kodtyp" for the PlainTextEntity
+	 * @param code the "kod" for the PlainTextEntity
+	 * @param codeType the "kodtyp" for the PlainTextEntity
 	 * @return a {@link PlainTextEntity}
 	 */
-	PlainTextEntity findByPlainTextIdCodeAndPlainTextIdCodeType(String kod, String kodtyp);
+	PlainTextEntity findByIdCodeAndIdCodeType(String code, String codeType);
 
 
 	/**
@@ -40,8 +40,8 @@ public interface PlainTextRepository extends JpaRepository<PlainTextEntity, Plai
 	 * @return a {@link List} of {@link PlainTextEntity}
 	 */
 	@Cacheable(value = CASE_DESCRIPTION_CACHE)
-	default Optional<PlainTextEntity> findDescriptionForCase(String kod) {
-		return Optional.ofNullable(findByPlainTextIdCodeAndPlainTextIdCodeType(kod, "A"));
+	default Optional<PlainTextEntity> findDescriptionForCase(String code) {
+		return Optional.ofNullable(findByIdCodeAndIdCodeType(code, "A"));
 	}
 
 	/**
@@ -50,8 +50,8 @@ public interface PlainTextRepository extends JpaRepository<PlainTextEntity, Plai
 	 * @return a {@link List} of {@link PlainTextEntity}
 	 */
 	@Cacheable(value = EVENT_DESCRIPTION_CACHE)
-	default Optional<PlainTextEntity> findDescriptionForEvent(String kod) {
-		return Optional.ofNullable(findByPlainTextIdCodeAndPlainTextIdCodeType(kod, "D"));
+	default Optional<PlainTextEntity> findDescriptionForEvent(String code) {
+		return Optional.ofNullable(findByIdCodeAndIdCodeType(code, "D"));
 	}
 
 	/**
@@ -60,7 +60,7 @@ public interface PlainTextRepository extends JpaRepository<PlainTextEntity, Plai
 	 * @return a {@link List} of {@link PlainTextEntity}
 	 */
 	@Cacheable(value = DECISION_DESCRIPTION_CACHE)
-	default Optional<PlainTextEntity> findDescriptionForDecision(String kod){
-		return Optional.ofNullable(findByPlainTextIdCodeAndPlainTextIdCodeType(kod, "B"));
+	default Optional<PlainTextEntity> findDescriptionForDecision(String code){
+		return Optional.ofNullable(findByIdCodeAndIdCodeType(code, "B"));
 	}
 }

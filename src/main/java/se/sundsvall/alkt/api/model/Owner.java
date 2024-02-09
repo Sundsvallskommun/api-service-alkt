@@ -16,46 +16,50 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder(setterPrefix = "with")
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Owner {
 
-	@Schema(description = "Organization number", example = "1234567890")
-	private String organizationNumber;
+	@Schema(description = "PartyId (e.g. a personId or an organizationId)", example = "c4794977-a073-484d-adef-564b240db8f8")
+	private String partyId;
 
 	@Schema(description = "Name of the organization", example = "Sundsvalls kommun")
 	private String organizationName;
 
-	@ArraySchema(schema = @Schema(description = "List of all establishments / objects", implementation = AlktObject.class))
-	private List<AlktObject> objects;
+	@ArraySchema(schema = @Schema(description = "List of all establishments", implementation = Establishment.class))
+	private List<Establishment> establishments;
 
 	@Getter
 	@Setter
 	@Builder(setterPrefix = "with")
-	public static class AlktObject {
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class Establishment {
 
-		@Schema(description = "Name of the establishment / object", example = "Sundsvalls kommuns bar")
+		@Schema(description = "Name of the establishment", example = "Sundsvalls kommuns bar")
 		private String name;
 
-		@Schema(description = "When the establisment /object was first posted", example = "2021-01-01T00:00:00")
-		private LocalDateTime postedDate;
+		@Schema(description = "When the establisment was first created", example = "2021-01-01T00:00:00")
+		private LocalDateTime posted;
 
-		@Schema(description = "When the establishment / object changed", example = "2021-01-01T00:00:00")
-		private LocalDateTime changedDate;
+		@Schema(description = "When the establishment changed", example = "2021-01-01T00:00:00")
+		private LocalDateTime changed;
 
-		@ArraySchema(schema = @Schema(description = "All cases on an object/establishment", implementation = Case.class))
+		@ArraySchema(schema = @Schema(description = "All cases on an establishment", implementation = Case.class))
 		private List<Case> cases;
 
 		@Getter
 		@Setter
 		@Builder(setterPrefix = "with")
+		@NoArgsConstructor
+		@AllArgsConstructor
 		public static class Case {
 
 			@Schema(description = "Case number", example = "123")
-			private int caseId;
+			private int id;
 
 			@Schema(description = "Diarie number", example = "1234567890")
-			private String diarieNumber;
+			private String registrationNumber;
 
 			@JsonIgnore	//Not needed in reponse but when decorating the case Description
 			private String caseType;
@@ -63,8 +67,8 @@ public class Owner {
 			@Schema(description = "If the case open or closed", example = "true")
 			private boolean isOpen;
 
-			@Schema(description = "Case Description", example = "Nytt tillstånd, allmänheten")
-			private String caseDescription;
+			@Schema(description = "Case description", example = "Nytt tillstånd, allmänheten")
+			private String description;
 
 			@Schema(description = "When the case last changed", example = "2021-01-01T00:00:00")
 			private LocalDateTime changed;
@@ -87,18 +91,20 @@ public class Owner {
 			@Getter
 			@Setter
 			@Builder(setterPrefix = "with")
+			@NoArgsConstructor
+			@AllArgsConstructor
 			public static class Event {
 				@JsonIgnore //Not needed in reponse but when decorating the event Description
-				private String eventType;
+				private String type;
 
 				@Schema(description = "Description of the event", example = "Remiss till skattemyndigheten")
-				private String eventTypeDescription;
+				private String description;
 
 				@Schema(description = "When the event changed", example = "2021-01-01T00:00:00")
 				private LocalDateTime changed;
 
 				@Schema(description = "When the event happened", example = "2021-01-01T00:00:00")
-				private LocalDateTime eventDate;
+				private LocalDateTime created;
 
 				@Schema(description = "When the event was posted", example = "2021-01-01T00:00:00")
 				private LocalDateTime posted;
@@ -107,16 +113,18 @@ public class Owner {
 			@Getter
 			@Setter
 			@Builder(setterPrefix = "with")
+			@NoArgsConstructor
+			@AllArgsConstructor
 			public static class Decision {
 
 				@JsonIgnore //Not needed in reponse but when decorating the decision Description
-				private String decisionType;
+				private String type;
 
 				@Schema(description = "A description of which decision was made", example = "Tillstånd allmänhet")
-				private String decisionDescription;
+				private String description;
 
 				@Schema(description = "When the decision was made", example = "2021-01-01T00:00:00")
-				private LocalDateTime decisionDate;
+				private LocalDateTime created;
 			}
 		}
 	}

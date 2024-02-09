@@ -17,8 +17,12 @@ spring:
     name: api-alkt
   datasource:
     configuration:
+      maximum-pool-size: 10
       connection-timeout: 5000
       read-only: true
+    url: jdbc:sqlserver://localhost:1433;databaseName=AlkTSundsvall;trustServerCertificate=true
+    username: SA
+    password: P@ssword
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     hibernate:
@@ -37,13 +41,15 @@ spring:
               append: false
         default_schema: dbo
       jakarta:
-          persistence:
-              schema-generation:
-                database:
-                  action: validate
-                scripts:
-                  action: create
-                  create-target: target/database/generated-schema.sql
+        persistence:
+          schema-generation:
+
+            database:
+              action: validate
+            scripts:
+              action: create
+              create-target: target/database/generated-schema.sql
+    #database-platform: org.hibernate.dialect.SQLServerDialect
   security:
     oauth2:
       client:

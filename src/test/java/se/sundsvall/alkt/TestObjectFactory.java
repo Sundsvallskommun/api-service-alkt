@@ -7,7 +7,7 @@ import java.util.Optional;
 import se.sundsvall.alkt.integration.db.entity.CaseDecisionEntity;
 import se.sundsvall.alkt.integration.db.entity.CaseEntity;
 import se.sundsvall.alkt.integration.db.entity.CaseEventEntity;
-import se.sundsvall.alkt.integration.db.entity.ObjectEntity;
+import se.sundsvall.alkt.integration.db.entity.EstablishmentEntity;
 import se.sundsvall.alkt.integration.db.entity.OwnerEntity;
 import se.sundsvall.alkt.integration.db.entity.PlainTextEntity;
 
@@ -15,18 +15,18 @@ public class TestObjectFactory {
 
 	public static OwnerEntity generateOwnerEntity() {
 		return OwnerEntity.builder()
-				.withOwnerId(1)
-				.withOrganizationNumber("1234567890")
-				.withBolagsnamn("Bolagsnamn")
-				.withAndradDatum(LocalDateTime.now())
-				.withUpplagdDatum(LocalDateTime.now())
-				.withObjects(generateObjectEntityList())
+				.withId(1)
+				.withLegalId("1234567890")
+				.withCompanyName("Bolagsnamn")
+				.withChanged(LocalDateTime.now())
+				.withPosted(LocalDateTime.now())
+				.withEstablishments(generateObjectEntityList())
 				.build();
 	}
 
-	public static List<ObjectEntity> generateObjectEntityList() {
-		var objectEntity = ObjectEntity.builder()
-				.withObjectId(1)
+	public static List<EstablishmentEntity> generateObjectEntityList() {
+		var objectEntity = EstablishmentEntity.builder()
+				.withId(1)
 				.withOwnerId(1)
 				.withServingName("ServingName")
 				.withChanged(LocalDateTime.now())
@@ -39,10 +39,10 @@ public class TestObjectFactory {
 
 	public static List<CaseEntity> generateCaseEntityList() {
 		var caseEntity = CaseEntity.builder()
-				.withCaseId(1)
+				.withId(1)
 				.withCaseType("CaseType")
 				.withCaseManagerId("CaseManagerId")
-				.withDiarieNumber("DiarieNumber")
+				.withReferenceNumber("DiarieNumber")
 				.withChanged(LocalDateTime.now())
 				.withClosed(LocalDateTime.now())
 				.withOpened(LocalDateTime.now())
@@ -56,10 +56,10 @@ public class TestObjectFactory {
 
 	public static CaseEventEntity generateCaseEventEntityList() {
 		return CaseEventEntity.builder()
-				.withEventId(1)
-				.withObjectID(1)
+				.withId(1)
+				.withEstablishmentId(1)
 				.withCaseId(1)
-				.withDiarieNumber("123-456-789")
+				.withReferenceNumber("123-456-789")
 				.withEventType("EventType")
 				.withChanged(LocalDateTime.now())
 				.withEvent(LocalDateTime.now())

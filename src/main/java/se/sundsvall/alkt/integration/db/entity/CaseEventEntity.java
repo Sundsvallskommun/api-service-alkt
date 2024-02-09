@@ -1,17 +1,14 @@
 package se.sundsvall.alkt.integration.db.entity;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,27 +21,23 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Ärende_Händelser", indexes = {
-		@Index(name = "IX_ArendeID", columnList = "ArendeID")
-})
-public class CaseEventEntity implements Serializable {
+@Table(name = "Ärende_Händelser")
+public class CaseEventEntity {
 
 	@Id
 	@Column(name = "HandelseID", nullable = false)
-	private Integer eventId;
+	private int id;
 
 	@Column(name = "ObjektID")
-	private Integer objectID;
+	private Integer establishmentId;
 
 	@Column(name = "ArendeID", insertable=false, updatable=false)
 	private Integer caseId;
 
-	@Size(max = 30)
-	@Column(name = "DiarieNr", length = 30)
-	private String diarieNumber;
+	@Column(name = "DiarieNr")
+	private String referenceNumber;
 
-	@Size(max = 5)
-	@Column(name = "HandelseTyp", length = 5)
+	@Column(name = "HandelseTyp")
 	private String eventType;
 
 	@Column(name = "AndradDatum", columnDefinition = "datetime")
@@ -58,25 +51,25 @@ public class CaseEventEntity implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "ArendeID", referencedColumnName = "ArendeID")
-	private CaseEntity aCase;
+	private CaseEntity relatedCase;
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (!(o instanceof CaseEventEntity that)) return false;
-		return Objects.equals(eventId, that.eventId)
-				&& Objects.equals(objectID, that.objectID)
+		return Objects.equals(id, that.id)
+				&& Objects.equals(establishmentId, that.establishmentId)
 				&& Objects.equals(caseId, that.caseId)
-				&& Objects.equals(diarieNumber, that.diarieNumber)
+				&& Objects.equals(referenceNumber, that.referenceNumber)
 				&& Objects.equals(eventType, that.eventType)
 				&& Objects.equals(changed, that.changed)
 				&& Objects.equals(event, that.event)
 				&& Objects.equals(posted, that.posted)
-				&& Objects.equals(aCase, that.aCase);
+				&& Objects.equals(relatedCase, that.relatedCase);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(eventId, objectID, caseId, diarieNumber, eventType, changed, event, posted, aCase);
+		return Objects.hash(id, establishmentId, caseId, referenceNumber, eventType, changed, event, posted, relatedCase);
 	}
 }

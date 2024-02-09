@@ -3,7 +3,6 @@ package se.sundsvall.alkt.integration.db.entity;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanEquals;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanHashCode;
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanToString;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidGettersAndSetters;
 import static com.google.code.beanmatchers.BeanMatchers.registerValueGenerator;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class ObjectEntityTest {
+class EstablishmentEntityTest {
 
 	@BeforeAll
 	static void setup() {
@@ -23,7 +22,7 @@ class ObjectEntityTest {
 
 	@Test
 	void testBean() {
-		assertThat(ObjectEntity.class, allOf(
+		assertThat(EstablishmentEntity.class, allOf(
 				hasValidBeanConstructor(),
 				hasValidGettersAndSetters(),
 				hasValidBeanHashCode(),

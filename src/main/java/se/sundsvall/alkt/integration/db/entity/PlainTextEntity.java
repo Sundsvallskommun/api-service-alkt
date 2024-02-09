@@ -1,13 +1,11 @@
 package se.sundsvall.alkt.integration.db.entity;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,25 +19,24 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(schema = "dbo", name = "Klartext")
-public class PlainTextEntity implements Serializable {
+public class PlainTextEntity {
 
 	@EmbeddedId
-	private PlainTextId plainTextId;
+	private PlainTextId id;
 
-	@Size(max = 50)
-	@Column(name = "Klartext", length = 50)
+	@Column(name = "Klartext")
 	private String plainText;
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (!(o instanceof PlainTextEntity that)) return false;
-		return Objects.equals(plainTextId, that.plainTextId)
+		return Objects.equals(id, that.id)
 				&& Objects.equals(plainText, that.plainText);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(plainTextId, plainText);
+		return Objects.hash(id, plainText);
 	}
 }

@@ -1,17 +1,14 @@
 package se.sundsvall.alkt.integration.db.entity;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,25 +21,22 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Ärende_Beslut", schema = "dbo", indexes = {
-		@Index(name = "IX_ÄrendeID", columnList = "ArendeID")
-})
-public class CaseDecisionEntity implements Serializable {
+@Table(name = "Ärende_Beslut", schema = "dbo")
+public class CaseDecisionEntity {
 
 	@Id
 	@Column(name = "BeslutsID", nullable = false)
-	private Integer id;
+	private int id;
 
 	@Column(name = "ArendeID", insertable=false, updatable=false)
 	private Integer caseId;
 
+	@Column(name = "BeslutsTyp")
+	private String decisionType;
+
 	@OneToOne
 	@JoinColumn(name = "ArendeID", referencedColumnName = "ArendeID")
-	private CaseEntity caseEntity;
-
-	@Size(max = 5)
-	@Column(name = "BeslutsTyp", length = 5)
-	private String decisionType;
+	private CaseEntity relatedCase;
 
 	@Column(name = "BeslutsDatumTid", columnDefinition = "datetime")
 	private LocalDateTime decision;
@@ -53,13 +47,13 @@ public class CaseDecisionEntity implements Serializable {
 		if (!(o instanceof CaseDecisionEntity that)) return false;
 		return Objects.equals(id, that.id)
 				&& Objects.equals(caseId, that.caseId)
-				&& Objects.equals(caseEntity, that.caseEntity)
+				&& Objects.equals(relatedCase, that.relatedCase)
 				&& Objects.equals(decisionType, that.decisionType)
 				&& Objects.equals(decision, that.decision);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, caseId, caseEntity, decisionType, decision);
+		return Objects.hash(id, caseId, relatedCase, decisionType, decision);
 	}
 }

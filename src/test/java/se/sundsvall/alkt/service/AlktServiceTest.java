@@ -40,29 +40,27 @@ class AlktServiceTest {
 	private PlainTextRepository plainTextRepositoryMock;
 
 	@Mock
-	private Mapper mapperMock;
+	private EntityMapper entityMapperMock;
 
 	@InjectMocks
 	private AlktService alktService;
 
 	@Test
 	void testGetOwnersAndCasesByOrgNo() {
-		when(ownerRepositoryMock.findByOrganizationNumber(any())).thenReturn(List.of(TestObjectFactory.generateOwnerEntity()));
-		when(mapperMock.mapToOwnerResponse(any())).thenCallRealMethod();
+		when(ownerRepositoryMock.findByLegalId(any())).thenReturn(List.of(TestObjectFactory.generateOwnerEntity()));
 		when(plainTextRepositoryMock.findDescriptionForCase(any())).thenReturn(TestObjectFactory.generateOptionalPlainTextEntity());
 		when(plainTextRepositoryMock.findDescriptionForEvent(any())).thenReturn(TestObjectFactory.generateOptionalPlainTextEntity());
 		when(plainTextRepositoryMock.findDescriptionForDecision(any())).thenReturn(TestObjectFactory.generateOptionalPlainTextEntity());
 
-		var owner = alktService.getOwnersAndCasesByOrganizationNumber("123").getFirst();
+		var owner = alktService.getOwnersAndCasesByLegalId("123").getFirst();
 
 		//We already verify that mapping to Owners class is correct when testing the mapper.
 		//Here we only verify that the Owner object(s) gets decorated with Descriptions.
-		assertThat(owner.getObjects().getFirst().getCases().getFirst().getCaseDescription()).isEqualTo("plain text description");
-		assertThat(owner.getObjects().getFirst().getCases().getFirst().getEvents().getFirst().getEventTypeDescription()).isEqualTo("plain text description");
-		assertThat(owner.getObjects().getFirst().getCases().getFirst().getDecision().getDecisionDescription()).isEqualTo("plain text description");
+		assertThat(owner.getEstablishments().getFirst().getCases().getFirst().getDescription()).isEqualTo("plain text description");
+		assertThat(owner.getEstablishments().getFirst().getCases().getFirst().getEvents().getFirst().getDescription()).isEqualTo("plain text description");
+		assertThat(owner.getEstablishments().getFirst().getCases().getFirst().getDecision().getDescription()).isEqualTo("plain text description");
 
-		verify(ownerRepositoryMock).findByOrganizationNumber("123");
-		verify(mapperMock).mapToOwnerResponse(any());
+		verify(ownerRepositoryMock).findByLegalId("123");
 		verify(plainTextRepositoryMock).findDescriptionForCase(any());
 		verify(plainTextRepositoryMock).findDescriptionForEvent(any());
 		verify(plainTextRepositoryMock).findDescriptionForDecision(any());

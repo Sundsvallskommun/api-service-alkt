@@ -19,8 +19,9 @@ spring:
       jakarta:
         persistence:
           schema-generation:
+            create-source: metadata
             database:
-              #action: create
+              action: validate
               create-target: target/database/generated-schema.sql
       hibernate:
         hbm2ddl:

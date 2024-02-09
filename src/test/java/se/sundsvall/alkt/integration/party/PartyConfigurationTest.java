@@ -28,7 +28,6 @@ import se.sundsvall.dept44.configuration.feign.decoder.ProblemErrorDecoder;
 
 import feign.codec.ErrorDecoder;
 
-//@DataJpaTest
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("junit")
 class PartyConfigurationTest {

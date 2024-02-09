@@ -8,8 +8,7 @@ create table dbo.Klartext
 
 create table dbo.Objekt
 (
-    ObjektID             int not null
-        primary key,
+    ObjektID             int not null primary key,
     AgarID               int,
     ServeringsNamn       varchar(40),
     UpplagdDatum         datetime,
@@ -21,8 +20,7 @@ create index IX_AgarID
 
 create table dbo.Ägare
 (
-    AgarID            int not null
-        primary key,
+    AgarID            int not null primary key,
     OrganisationsNr   varchar(12),
     Bolagsnamn        varchar(40),
     UpplagdDatum      datetime,
@@ -31,8 +29,7 @@ create table dbo.Ägare
 
 create table dbo.Ärende
 (
-    ArendeID                int not null
-        primary key,
+    ArendeID                int not null primary key,
     ObjektID                int,
     ArendeTyp               varchar(6),
     HandlaggarID            varchar(5),
@@ -48,8 +45,7 @@ create index IX_ObjektID
 
 create table dbo.Ärende_Beslut
 (
-    BeslutsID               int not null
-        primary key,
+    BeslutsID               int not null primary key,
     ArendeID                int,
     BeslutsTyp              varchar(5),
     BeslutsDatumTid         datetime
@@ -60,8 +56,7 @@ create index IX_ÄrendeID
 
 create table dbo.Ärende_Händelser
 (
-    HandelseID       int not null
-        primary key,
+    HandelseID       int not null primary key,
     ArendeID         int,
     HandelseTyp      varchar(5),
     HandelseDatumTid datetime,
