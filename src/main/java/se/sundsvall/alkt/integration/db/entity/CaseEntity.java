@@ -42,7 +42,7 @@ public class CaseEntity {
 	private CaseDecisionEntity decision;
 
 	@Column(name = "ArendeTyp")
-	private String caseType;
+	private String type;
 
 	@Column(name = "DiarieNr")
 	private String referenceNumber;
@@ -67,7 +67,7 @@ public class CaseEntity {
 				&& Objects.equals(caseManagerId, that.caseManagerId)
 				&& Objects.equals(events, that.events)
 				&& Objects.equals(decision, that.decision)
-				&& Objects.equals(caseType, that.caseType)
+				&& Objects.equals(type, that.type)
 				&& Objects.equals(referenceNumber, that.referenceNumber)
 				&& Objects.equals(establishmentId, that.establishmentId)
 				&& Objects.equals(opened, that.opened)
@@ -78,6 +78,6 @@ public class CaseEntity {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, caseManagerId, events, decision, caseType, referenceNumber, establishmentId, opened, closed, changed, posted);
+		return Objects.hash(id, caseManagerId, events, decision, type, referenceNumber, establishmentId, opened, closed, changed, posted);
 	}
 }

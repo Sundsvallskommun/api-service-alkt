@@ -32,7 +32,7 @@ public class CaseDecisionEntity {
 	private Integer caseId;
 
 	@Column(name = "BeslutsTyp")
-	private String decisionType;
+	private String type;
 
 	@OneToOne
 	@JoinColumn(name = "ArendeID", referencedColumnName = "ArendeID")
@@ -48,12 +48,12 @@ public class CaseDecisionEntity {
 		return Objects.equals(id, that.id)
 				&& Objects.equals(caseId, that.caseId)
 				&& Objects.equals(relatedCase, that.relatedCase)
-				&& Objects.equals(decisionType, that.decisionType)
+				&& Objects.equals(type, that.type)
 				&& Objects.equals(decision, that.decision);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, caseId, relatedCase, decisionType, decision);
+		return Objects.hash(id, caseId, relatedCase, type, decision);
 	}
 }

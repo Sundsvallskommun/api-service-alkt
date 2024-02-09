@@ -56,7 +56,7 @@ public class AlktService {
 	}
 
 	private void addCaseDescription(Owner.Establishment.Case aCase) {
-		var caseType = aCase.getCaseType();
+		var caseType = aCase.getType();
 		var caseDescription = plainTextRepository.findDescriptionForCase(caseType);
 
 		aCase.setDescription(caseDescription.map(PlainTextEntity::getPlainText).orElse(null));

@@ -32,7 +32,7 @@ class EntityMapperTest {
 
 		assertThat(aCase.getId()).isEqualTo(1);
 		assertThat(aCase.getRegistrationNumber()).isEqualTo("DiarieNumber");
-		assertThat(aCase.getCaseType()).isEqualTo("CaseType");
+		assertThat(aCase.getType()).isEqualTo("CaseType");
 		assertThat(aCase.isOpen()).isFalse();
 		assertThat(aCase.getDescription()).isNull();	//Decorated later
 		assertThat(aCase.getChanged()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));

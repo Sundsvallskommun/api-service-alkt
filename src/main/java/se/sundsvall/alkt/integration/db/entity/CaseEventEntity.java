@@ -38,7 +38,7 @@ public class CaseEventEntity {
 	private String referenceNumber;
 
 	@Column(name = "HandelseTyp")
-	private String eventType;
+	private String type;
 
 	@Column(name = "AndradDatum", columnDefinition = "datetime")
 	private LocalDateTime changed;
@@ -61,7 +61,7 @@ public class CaseEventEntity {
 				&& Objects.equals(establishmentId, that.establishmentId)
 				&& Objects.equals(caseId, that.caseId)
 				&& Objects.equals(referenceNumber, that.referenceNumber)
-				&& Objects.equals(eventType, that.eventType)
+				&& Objects.equals(type, that.type)
 				&& Objects.equals(changed, that.changed)
 				&& Objects.equals(event, that.event)
 				&& Objects.equals(posted, that.posted)
@@ -70,6 +70,6 @@ public class CaseEventEntity {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, establishmentId, caseId, referenceNumber, eventType, changed, event, posted, relatedCase);
+		return Objects.hash(id, establishmentId, caseId, referenceNumber, type, changed, event, posted, relatedCase);
 	}
 }

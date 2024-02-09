@@ -11,7 +11,10 @@ import se.sundsvall.alkt.integration.db.entity.EstablishmentEntity;
 import se.sundsvall.alkt.integration.db.entity.OwnerEntity;
 import se.sundsvall.alkt.integration.db.entity.PlainTextEntity;
 
-public class TestObjectFactory {
+public final class TestObjectFactory {
+
+	private TestObjectFactory() {
+	}
 
 	public static OwnerEntity generateOwnerEntity() {
 		return OwnerEntity.builder()
@@ -40,7 +43,7 @@ public class TestObjectFactory {
 	public static List<CaseEntity> generateCaseEntityList() {
 		var caseEntity = CaseEntity.builder()
 				.withId(1)
-				.withCaseType("CaseType")
+				.withType("CaseType")
 				.withCaseManagerId("CaseManagerId")
 				.withReferenceNumber("DiarieNumber")
 				.withChanged(LocalDateTime.now())
@@ -60,7 +63,7 @@ public class TestObjectFactory {
 				.withEstablishmentId(1)
 				.withCaseId(1)
 				.withReferenceNumber("123-456-789")
-				.withEventType("EventType")
+				.withType("EventType")
 				.withChanged(LocalDateTime.now())
 				.withEvent(LocalDateTime.now())
 				.withPosted(LocalDateTime.now())
@@ -72,7 +75,7 @@ public class TestObjectFactory {
 				.withCaseId(1)
 				.withDecision(LocalDateTime.now())
 				.withId(1)
-				.withDecisionType("DecisionType")
+				.withType("DecisionType")
 				.build();
 	}
 

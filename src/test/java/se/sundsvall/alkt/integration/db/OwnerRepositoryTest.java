@@ -42,7 +42,7 @@ class OwnerRepositoryTest {
 
 		assertThat(aCase.getId()).isEqualTo(2);
 		assertThat(aCase.getCaseManagerId()).isEqualTo("JOS");
-		assertThat(aCase.getCaseType()).isEqualTo("5");
+		assertThat(aCase.getType()).isEqualTo("5");
 		assertThat(aCase.getReferenceNumber()).isEqualTo("1234567");
 		assertThat(aCase.getEstablishmentId()).isEqualTo(202);
 		assertThat(aCase.getOpened()).isEqualTo(LocalDateTime.parse("1996-01-18T00:00"));

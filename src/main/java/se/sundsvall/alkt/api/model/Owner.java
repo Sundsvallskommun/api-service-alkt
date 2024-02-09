@@ -23,7 +23,7 @@ public class Owner {
 	@Schema(description = "PartyId (e.g. a personId or an organizationId)", example = "c4794977-a073-484d-adef-564b240db8f8")
 	private String partyId;
 
-	@Schema(description = "Name of the organization", example = "Sundsvalls kommun")
+	@Schema(description = "Name of the organization", example = "Lelles AB")
 	private String organizationName;
 
 	@ArraySchema(schema = @Schema(description = "List of all establishments", implementation = Establishment.class))
@@ -36,13 +36,13 @@ public class Owner {
 	@AllArgsConstructor
 	public static class Establishment {
 
-		@Schema(description = "Name of the establishment", example = "Sundsvalls kommuns bar")
+		@Schema(description = "Name of the establishment", example = "Lelles bar")
 		private String name;
 
-		@Schema(description = "When the establisment was first created", example = "2021-01-01T00:00:00")
+		@Schema(description = "When the establishment was first created", example = "2021-01-01T00:00:00")
 		private LocalDateTime posted;
 
-		@Schema(description = "When the establishment changed", example = "2021-01-01T00:00:00")
+		@Schema(description = "When the establishment was changed", example = "2021-01-01T00:00:00")
 		private LocalDateTime changed;
 
 		@ArraySchema(schema = @Schema(description = "All cases on an establishment", implementation = Case.class))
@@ -58,19 +58,19 @@ public class Owner {
 			@Schema(description = "Case number", example = "123")
 			private int id;
 
-			@Schema(description = "Diarie number", example = "1234567890")
+			@Schema(description = "Registration number", example = "1234567890")
 			private String registrationNumber;
 
 			@JsonIgnore	//Not needed in reponse but when decorating the case Description
-			private String caseType;
+			private String type;
 
-			@Schema(description = "If the case open or closed", example = "true")
+			@Schema(description = "If the case is open or closed", example = "true")
 			private boolean isOpen;
 
 			@Schema(description = "Case description", example = "Nytt tillstånd, allmänheten")
 			private String description;
 
-			@Schema(description = "When the case last changed", example = "2021-01-01T00:00:00")
+			@Schema(description = "When the case was changed", example = "2021-01-01T00:00:00")
 			private LocalDateTime changed;
 
 			@Schema(description = "When the case was closed", example = "2021-01-01T00:00:00")
@@ -100,7 +100,7 @@ public class Owner {
 				@Schema(description = "Description of the event", example = "Remiss till skattemyndigheten")
 				private String description;
 
-				@Schema(description = "When the event changed", example = "2021-01-01T00:00:00")
+				@Schema(description = "When the event was changed", example = "2021-01-01T00:00:00")
 				private LocalDateTime changed;
 
 				@Schema(description = "When the event happened", example = "2021-01-01T00:00:00")

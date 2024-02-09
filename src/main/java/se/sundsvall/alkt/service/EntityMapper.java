@@ -4,8 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Optional;
 
-import org.springframework.stereotype.Component;
-
 import se.sundsvall.alkt.api.model.Owner;
 import se.sundsvall.alkt.integration.db.entity.CaseDecisionEntity;
 import se.sundsvall.alkt.integration.db.entity.CaseEntity;
@@ -15,9 +13,8 @@ import se.sundsvall.alkt.integration.db.entity.OwnerEntity;
 
 import lombok.NoArgsConstructor;
 
-@Component
 @NoArgsConstructor(access = PRIVATE)
-public class EntityMapper {
+public final class EntityMapper {
 
 	public static Owner toOwnerResponse(OwnerEntity ownerEntity) {
 		return Owner.builder()
@@ -43,7 +40,7 @@ public class EntityMapper {
 	private static Owner.Establishment.Case toCase(CaseEntity caseEntity) {
 		return Owner.Establishment.Case.builder()
 				.withId(caseEntity.getId())
-				.withCaseType(caseEntity.getCaseType())
+				.withType(caseEntity.getType())
 				.withRegistrationNumber(caseEntity.getReferenceNumber())
 				.withChanged(caseEntity.getChanged())
 				.withClosed(caseEntity.getClosed())
@@ -64,13 +61,13 @@ public class EntityMapper {
 				.withChanged(caseEntity.getChanged())
 				.withPosted(caseEntity.getPosted())
 				.withCreated(caseEntity.getEvent())
-				.withType(caseEntity.getEventType())
+				.withType(caseEntity.getType())
 				.build();
 	}
 
 	private static Owner.Establishment.Case.Decision toDecision(CaseDecisionEntity decisionEntity) {
 		return Owner.Establishment.Case.Decision.builder()
-				.withType(decisionEntity.getDecisionType())
+				.withType(decisionEntity.getType())
 				.withCreated(decisionEntity.getDecision())
 				.build();
 	}
