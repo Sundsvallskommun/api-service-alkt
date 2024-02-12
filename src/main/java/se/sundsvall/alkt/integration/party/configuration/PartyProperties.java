@@ -1,4 +1,4 @@
-package se.sundsvall.alkt.integration.party;
+package se.sundsvall.alkt.integration.party.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

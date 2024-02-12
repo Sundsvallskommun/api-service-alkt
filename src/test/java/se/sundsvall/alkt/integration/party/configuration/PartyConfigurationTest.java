@@ -1,10 +1,10 @@
-package se.sundsvall.alkt.integration.party;
+package se.sundsvall.alkt.integration.party.configuration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static se.sundsvall.alkt.integration.party.PartyConfiguration.CLIENT_ID;
+import static se.sundsvall.alkt.integration.party.configuration.PartyConfiguration.CLIENT_ID;
 
 import java.util.List;
 
@@ -22,13 +22,12 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.test.context.ActiveProfiles;
 
-import se.sundsvall.alkt.Application;
 import se.sundsvall.dept44.configuration.feign.FeignMultiCustomizer;
 import se.sundsvall.dept44.configuration.feign.decoder.ProblemErrorDecoder;
 
 import feign.codec.ErrorDecoder;
 
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("junit")
 class PartyConfigurationTest {
 

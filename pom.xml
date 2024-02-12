@@ -30,6 +30,10 @@
 		</dependency>
 		<dependency>
 			<groupId>se.sundsvall.dept44</groupId>
+			<artifactId>dept44-common-validators</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>se.sundsvall.dept44</groupId>
 			<artifactId>dept44-starter-feign</artifactId>
 		</dependency>
 		<dependency>
@@ -70,7 +74,6 @@
 					<excludes>
 						<exclude>**/se/sundsvall/alkt/Application*</exclude>
 						<exclude>**/generated/se/sundsvall/**/*</exclude>
-						<exclude>**/se/sundsvall/alkt/api/AlktResource*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

@@ -1,4 +1,4 @@
-package se.sundsvall.alkt.integration.party;
+package se.sundsvall.alkt.integration.party.configuration;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 

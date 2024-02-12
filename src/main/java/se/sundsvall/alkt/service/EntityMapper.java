@@ -18,7 +18,6 @@ public final class EntityMapper {
 
 	public static Owner toOwnerResponse(OwnerEntity ownerEntity) {
 		return Owner.builder()
-				.withPartyId(ownerEntity.getLegalId())
 				.withOrganizationName(ownerEntity.getCompanyName())
 				.withEstablishments(ownerEntity.getEstablishments().stream()
 						.map(EntityMapper::toEstablishment)
