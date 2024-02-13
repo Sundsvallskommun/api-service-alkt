@@ -20,9 +20,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Owner {
 
-	@Schema(description = "PartyId (e.g. a personId or an organizationId)", example = "c4794977-a073-484d-adef-564b240db8f8")
-	private String partyId;
-
 	@Schema(description = "Name of the organization", example = "Lelles AB")
 	private String organizationName;
 
@@ -94,6 +91,7 @@ public class Owner {
 			@NoArgsConstructor
 			@AllArgsConstructor
 			public static class Event {
+
 				@JsonIgnore //Not needed in reponse but when decorating the event Description
 				private String type;
 

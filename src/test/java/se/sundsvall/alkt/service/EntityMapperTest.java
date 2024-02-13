@@ -17,7 +17,6 @@ class EntityMapperTest {
 		var ownerEntity = TestObjectFactory.generateOwnerEntity();
 		var ownerResponse = EntityMapper.toOwnerResponse(ownerEntity);
 
-		assertThat(ownerResponse.getPartyId()).isEqualTo("1234567890");
 		assertThat(ownerResponse.getOrganizationName()).isEqualTo("Bolagsnamn");
 		assertThat(ownerResponse.getEstablishments()).hasSize(1);
 
