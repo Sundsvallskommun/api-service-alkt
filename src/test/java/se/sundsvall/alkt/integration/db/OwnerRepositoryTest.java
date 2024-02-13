@@ -20,10 +20,10 @@ class OwnerRepositoryTest {
 
 	@Test
 	void testFindByLegalId() {
-		var ownerEntity = ownerRepository.findByLegalId("556506-9852").getFirst();
+		var ownerEntity = ownerRepository.findByLegalId("559162-8136").getFirst();
 
 		assertThat(ownerEntity.getId()).isEqualTo(52);
-		assertThat(ownerEntity.getLegalId()).isEqualTo("556506-9852");
+		assertThat(ownerEntity.getLegalId()).isEqualTo("559162-8136");
 		assertThat(ownerEntity.getCompanyName()).isEqualTo("Kalle Ankas Aktiebolag");
 		assertThat(ownerEntity.getChanged()).isEqualTo(LocalDateTime.parse("2020-09-11T08:45:19.923"));
 		assertThat(ownerEntity.getPosted()).isEqualTo(LocalDateTime.parse("2020-09-11T08:45:19.923"));

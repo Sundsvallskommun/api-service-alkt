@@ -1,5 +1,5 @@
 insert into dbo.Ägare (AgarID, OrganisationsNr, Bolagsnamn, AndradDatum, UpplagdDatum)
-values  (52, N'556506-9852', N'Kalle Ankas Aktiebolag', N'2020-09-11 08:45:19.923', '2020-09-11 08:45:19.923');
+values  (52, N'559162-8136', N'Kalle Ankas Aktiebolag', N'2020-09-11 08:45:19.923', '2020-09-11 08:45:19.923');
 
 insert into dbo.Objekt (ObjektID, AgarID, ServeringsNamn, AndradDatum, UpplagdDatum)
 values  (202, 52, N'Kalles Uteservering', N'2020-08-28 10:54:11.813', N'2003-04-02 09:18:37.000');

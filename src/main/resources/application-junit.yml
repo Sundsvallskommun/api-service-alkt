@@ -1,48 +1,14 @@
 #========================================
 # Test profile settings (junit tests)
 #========================================
-logging:
-  level:
-    root: INFO
 spring:
   datasource:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-    connectionProperties: useUnicode=true;characterEncoding=utf-8;
     hikari:
       maximum-pool-size: 2
-      read-only: true
     url: jdbc:tc:sqlserver:2017-CU12:///
-    username: SA
-    password: P@ssword123
-  jpa:
-    properties:
-      jakarta:
-        persistence:
-          schema-generation:
-            create-source: metadata
-            database:
-              action: validate
-              create-target: target/database/generated-schema.sql
-      hibernate:
-        hbm2ddl:
-          schema-generation:
-            script:
-              append: false
-  security:
-    oauth2:
-      client:
-        registration:
-          party:
-            client-id: override
-            client-secret: override
-        provider:
-            party:
-                token-uri: http://url.com/token
   sql:
     init:
       data-locations: classpath:db/initialize.sql, classpath:db/schema.sql, classpath:db/testdata.sql
       encoding: utf-8
       mode: always
-integration:
-  party:
-    url: http://url.com

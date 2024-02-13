@@ -1,0 +1,18 @@
+{
+	"id": 2,
+	"registrationNumber": "1234567",
+	"description": "Tillstånd, slutet sällskap",
+	"closed": "1996-01-18T00:00:00",
+	"opened": "1996-01-18T00:00:00",
+	"events": [
+		{
+			"description": "Remiss till polisen",
+			"created": "1996-02-13T00:00:00"
+		}
+	],
+	"decision": {
+		"description": "Delegationsbeslut SKÅL",
+		"created": "1996-01-18T00:00:00"
+	},
+	"open": false
+}
