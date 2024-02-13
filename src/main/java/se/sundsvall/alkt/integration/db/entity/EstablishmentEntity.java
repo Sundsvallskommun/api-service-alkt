@@ -68,4 +68,17 @@ public class EstablishmentEntity {
 	public int hashCode() {
 		return Objects.hash(id, ownerId, owner, cases, servingName, changed, posted);
 	}
+
+	@Override
+	public String toString() {
+		return "EstablishmentEntity{" +
+				"id=" + id +
+				", ownerId=" + ownerId +
+				", owner=" + owner +
+				", cases=" + cases +
+				", servingName='" + servingName + '\'' +
+				", changed=" + changed +
+				", posted=" + posted +
+				'}';
+	}
 }

@@ -72,4 +72,18 @@ public class CaseEventEntity {
 	public int hashCode() {
 		return Objects.hash(id, establishmentId, caseId, referenceNumber, type, changed, event, posted, relatedCase);
 	}
+
+	@Override
+	public String toString() {
+		return "CaseEventEntity{" +
+				"id=" + id +
+				", establishmentId=" + establishmentId +
+				", caseId=" + caseId +
+				", referenceNumber='" + referenceNumber + '\'' +
+				", type='" + type + '\'' +
+				", changed=" + changed +
+				", event=" + event +
+				", posted=" + posted +
+				'}';
+	}
 }

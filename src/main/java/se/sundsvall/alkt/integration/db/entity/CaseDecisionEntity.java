@@ -56,4 +56,14 @@ public class CaseDecisionEntity {
 	public int hashCode() {
 		return Objects.hash(id, caseId, relatedCase, type, decision);
 	}
+
+	@Override
+	public String toString() {
+		return "CaseDecisionEntity{" +
+				"id=" + id +
+				", caseId=" + caseId +
+				", type='" + type + '\'' +
+				", decision=" + decision +
+				'}';
+	}
 }

@@ -18,6 +18,7 @@ class PlainTextEntityTest {
 				hasValidBeanConstructor(),
 				hasValidGettersAndSetters(),
 				hasValidBeanHashCode(),
-				hasValidBeanEquals()));
+				hasValidBeanEquals(),
+				hasValidBeanToString()));
 	}
 }

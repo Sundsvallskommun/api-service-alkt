@@ -38,4 +38,12 @@ public class PlainTextId {
 	public int hashCode() {
 		return Objects.hash(codeType, code);
 	}
+
+	@Override
+	public String toString() {
+		return "PlainTextId{" +
+				"codeType='" + codeType + '\'' +
+				", code='" + code + '\'' +
+				'}';
+	}
 }

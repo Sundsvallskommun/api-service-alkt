@@ -61,4 +61,14 @@ public class OwnerEntity {
 		return Objects.hash(id, legalId, companyName, changed, posted, establishments);
 	}
 
+	@Override
+	public String toString() {
+		return "OwnerEntity{" +
+				"id=" + id +
+				", legalId='" + legalId + '\'' +
+				", companyName='" + companyName + '\'' +
+				", changed=" + changed +
+				", posted=" + posted +
+				'}';
+	}
 }

@@ -39,4 +39,12 @@ public class PlainTextEntity {
 	public int hashCode() {
 		return Objects.hash(id, plainText);
 	}
+
+	@Override
+	public String toString() {
+		return "PlainTextEntity{" +
+				"id=" + id +
+				", plainText='" + plainText + '\'' +
+				'}';
+	}
 }
