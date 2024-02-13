@@ -15,10 +15,35 @@ openapi:
 spring:
   application:
     name: api-alkt
-  cache:
-    cache-names: partyIds, legalIds
-    caffeine:
-      spec: maximumSize=1000, expireAfterWrite=86400s
+  datasource:
+    configuration:
+      connection-timeout: 5000
+      read-only: true
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    properties:
+      hibernate:
+        connection:
+          readOnly: true
+        jdbc:
+          time_zone: Europe/Stockholm
+        hbm2ddl:
+          schema-generation:
+            script:
+              append: false
+        default_schema: dbo
+      jakarta:
+          persistence:
+              schema-generation:
+                database:
+                  action: validate
+                scripts:
+                  action: create
+                  create-target: target/database/generated-schema.sql
   security:
     oauth2:
       client:
@@ -26,4 +51,3 @@ spring:
           party:
             authorization-grant-type: client_credentials
             provider: party
-
