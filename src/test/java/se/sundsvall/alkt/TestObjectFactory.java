@@ -41,20 +41,22 @@ public final class TestObjectFactory {
 	}
 
 	public static List<CaseEntity> generateCaseEntityList() {
-		var caseEntity = CaseEntity.builder()
-				.withId(1)
-				.withType("CaseType")
-				.withCaseManagerId("CaseManagerId")
-				.withReferenceNumber("DiarieNumber")
-				.withChanged(LocalDateTime.now())
-				.withClosed(LocalDateTime.now())
-				.withOpened(LocalDateTime.now())
-				.withPosted(LocalDateTime.now())
-				.withEvents(List.of(generateCaseEventEntityList()))
-				.withDecision(generateCaseDecisionEntity())
-				.build();
+		return List.of(generateCaseEntity());
+	}
 
-		return List.of(caseEntity);
+	public static CaseEntity generateCaseEntity() {
+		return CaseEntity.builder()
+			.withId(1)
+			.withType("CaseType")
+			.withCaseManagerId("CaseManagerId")
+			.withReferenceNumber("DiarieNumber")
+			.withChanged(LocalDateTime.now())
+			.withClosed(LocalDateTime.now())
+			.withOpened(LocalDateTime.now())
+			.withPosted(LocalDateTime.now())
+			.withEvents(List.of(generateCaseEventEntityList()))
+			.withDecision(generateCaseDecisionEntity())
+			.build();
 	}
 
 	public static CaseEventEntity generateCaseEventEntityList() {

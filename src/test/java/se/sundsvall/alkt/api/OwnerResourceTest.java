@@ -24,7 +24,7 @@ import se.sundsvall.alkt.service.AlktService;
 
 @ActiveProfiles("junit")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AlktResourceTest {
+class OwnerResourceTest {
 
 	@MockBean
 	private AlktService alktServiceMock;

@@ -1,10 +1,17 @@
 package se.sundsvall.alkt.service;
 
+import static org.zalando.problem.Status.NOT_FOUND;
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.zalando.problem.Problem;
 
+import se.sundsvall.alkt.api.model.Case;
+import se.sundsvall.alkt.api.model.Decision;
+import se.sundsvall.alkt.api.model.Event;
 import se.sundsvall.alkt.api.model.Owner;
+import se.sundsvall.alkt.integration.db.CaseRepository;
 import se.sundsvall.alkt.integration.db.OwnerRepository;
 import se.sundsvall.alkt.integration.db.PlainTextRepository;
 import se.sundsvall.alkt.integration.db.entity.PlainTextEntity;
@@ -16,11 +23,13 @@ public class AlktService {
 	private final PartyIntegration partyIntegration;
 	private final OwnerRepository ownerRepository;
 	private final PlainTextRepository plainTextRepository;
+	private final CaseRepository caseRepository;
 
-	public AlktService(PartyIntegration partyIntegration, OwnerRepository ownerRepository, PlainTextRepository plainTextRepository) {
+	public AlktService(PartyIntegration partyIntegration, OwnerRepository ownerRepository, PlainTextRepository plainTextRepository, CaseRepository caseRepository) {
 		this.partyIntegration = partyIntegration;
 		this.ownerRepository = ownerRepository;
 		this.plainTextRepository = plainTextRepository;
+		this.caseRepository = caseRepository;
 	}
 
 	/**
@@ -39,29 +48,36 @@ public class AlktService {
 
 		mappedOwners.forEach(owner -> owner.getEstablishments().stream()
 				.flatMap(establishment -> establishment.getCases().stream())
-				.forEach(aCase -> {
-					addCaseDescription(aCase);
-					addDecisionDescriptionToCase(aCase.getDecision());
-					aCase.getEvents().forEach(this::addEventDescription);
-				}));
+				.forEach(this::addCaseDescription));
 
 		return mappedOwners;
 	}
 
-	private void addCaseDescription(Owner.Establishment.Case aCase) {
+	public Case getCase(int id) {
+		return caseRepository.findById(id)
+			.map(EntityMapper::toCase)
+			.map(this::addCaseDescription)
+			.orElseThrow(() -> Problem.valueOf(NOT_FOUND, String.format("Case with id '%s' not found", id)));
+	}
+
+	private Case addCaseDescription(Case aCase) {
 		var caseType = aCase.getType();
 		var caseDescription = plainTextRepository.findDescriptionForCase(caseType);
 
 		aCase.setDescription(caseDescription.map(PlainTextEntity::getPlainText).orElse(null));
+		addDecisionDescriptionToCase(aCase.getDecision());
+		aCase.getEvents().forEach(this::addEventDescription);
+
+		return aCase;
 	}
 
-	private void addEventDescription(Owner.Establishment.Case.Event event) {
+	private void addEventDescription(Event event) {
 		var eventType = event.getType();
 		var eventDescription = plainTextRepository.findDescriptionForEvent(eventType);
 		event.setDescription(eventDescription.map(PlainTextEntity::getPlainText).orElse(null));
 	}
 
-	private void addDecisionDescriptionToCase(Owner.Establishment.Case.Decision decision) {
+	private void addDecisionDescriptionToCase(Decision decision) {
 		//Not all cases have a decision
 		if (decision != null) {
 			var decisionType = decision.getType();

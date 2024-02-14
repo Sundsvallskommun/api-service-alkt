@@ -4,6 +4,10 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Optional;
 
+import se.sundsvall.alkt.api.model.Case;
+import se.sundsvall.alkt.api.model.Decision;
+import se.sundsvall.alkt.api.model.Establishment;
+import se.sundsvall.alkt.api.model.Event;
 import se.sundsvall.alkt.api.model.Owner;
 import se.sundsvall.alkt.integration.db.entity.CaseDecisionEntity;
 import se.sundsvall.alkt.integration.db.entity.CaseEntity;
@@ -25,8 +29,8 @@ public final class EntityMapper {
 				.build();
 	}
 
-	private static Owner.Establishment toEstablishment(EstablishmentEntity establishmentEntity) {
-		return Owner.Establishment.builder()
+	private static Establishment toEstablishment(EstablishmentEntity establishmentEntity) {
+		return Establishment.builder()
 				.withName(establishmentEntity.getServingName())
 				.withChanged(establishmentEntity.getChanged())
 				.withPosted(establishmentEntity.getPosted())
@@ -36,8 +40,8 @@ public final class EntityMapper {
 				.build();
 	}
 
-	private static Owner.Establishment.Case toCase(CaseEntity caseEntity) {
-		return Owner.Establishment.Case.builder()
+	public static Case toCase(CaseEntity caseEntity) {
+		return Case.builder()
 				.withId(caseEntity.getId())
 				.withType(caseEntity.getType())
 				.withRegistrationNumber(caseEntity.getReferenceNumber())
@@ -55,8 +59,8 @@ public final class EntityMapper {
 				.build();
 	}
 
-	private static Owner.Establishment.Case.Event toEvent(CaseEventEntity caseEntity) {
-		return Owner.Establishment.Case.Event.builder()
+	private static Event toEvent(CaseEventEntity caseEntity) {
+		return Event.builder()
 				.withChanged(caseEntity.getChanged())
 				.withPosted(caseEntity.getPosted())
 				.withCreated(caseEntity.getEvent())
@@ -64,8 +68,8 @@ public final class EntityMapper {
 				.build();
 	}
 
-	private static Owner.Establishment.Case.Decision toDecision(CaseDecisionEntity decisionEntity) {
-		return Owner.Establishment.Case.Decision.builder()
+	private static Decision toDecision(CaseDecisionEntity decisionEntity) {
+		return Decision.builder()
 				.withType(decisionEntity.getType())
 				.withCreated(decisionEntity.getDecision())
 				.build();
