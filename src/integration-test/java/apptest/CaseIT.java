@@ -20,20 +20,20 @@ class CaseIT extends AbstractAppTest {
 	@Test
 	void test01_getCase_shouldReturnCases() {
 		setupCall()
-				.withServicePath(BASE_URL + 2)
-				.withHttpMethod(GET)
-				.withExpectedResponseStatus(OK)
-				.withExpectedResponse(RESPONSE_FILE)
-				.sendRequestAndVerifyResponse();
+			.withServicePath(BASE_URL + 2)
+			.withHttpMethod(GET)
+			.withExpectedResponseStatus(OK)
+			.withExpectedResponse(RESPONSE_FILE)
+			.sendRequestAndVerifyResponse();
 	}
 
 	@Test
 	void test02_getCase_noMatch_shouldReturn404() {
 		setupCall()
-				.withServicePath(BASE_URL + 999)
-				.withHttpMethod(GET)
-				.withExpectedResponseStatus(NOT_FOUND)
-				.withExpectedResponse(RESPONSE_FILE)
-				.sendRequestAndVerifyResponse();
+			.withServicePath(BASE_URL + 999)
+			.withHttpMethod(GET)
+			.withExpectedResponseStatus(NOT_FOUND)
+			.withExpectedResponse(RESPONSE_FILE)
+			.sendRequestAndVerifyResponse();
 	}
 }
