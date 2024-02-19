@@ -1,9 +1,31 @@
 #========================================
-# Test profile settings (IT tests)
+# IT-tests profile settings
 #========================================
-logging:
-  level:
-    root: INFO
+integration:
+  party:
+    connect-timeout: 2
+    read-timeout: 2
+    url: http://localhost:${wiremock.server.port}/party
 spring:
   cache:
     type: none
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    hikari:
+      maximum-pool-size: 2
+    url: jdbc:tc:sqlserver:2017-CU12:///
+  security:
+    oauth2:
+      client:
+        registration:
+          party:
+            client-id: override
+            client-secret: override
+        provider:
+          party:
+            token-uri: http://localhost:${wiremock.server.port}/token
+  sql:
+    init:
+      data-locations: classpath:db/initialize.sql, classpath:db/schema.sql, classpath:db/testdata.sql
+      encoding: utf-8
+      mode: always
