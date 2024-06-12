@@ -54,7 +54,7 @@ class PartyIntegrationTest {
 	}
 
 	@Test
-	void testGetLegalId_returnsEmpty_shouldThrowException() {
+	void testGetLegalIdReturnsEmptyShouldThrowException() {
 		when(partyClient.getLegalId(PartyType.ENTERPRISE, PRIVATE_UUID)).thenReturn(Optional.empty());
 		when(partyClient.getLegalId(PartyType.PRIVATE, PRIVATE_UUID)).thenReturn(Optional.empty());
 
@@ -67,7 +67,7 @@ class PartyIntegrationTest {
 	}
 
 	@Test
-	void testGetLegalId_returnsFaultyLegalId_shouldThrowException() {
+	void testGetLegalIdReturnsFaultyLegalIdShouldThrowException() {
 		when(partyClient.getLegalId(PartyType.ENTERPRISE, PRIVATE_UUID)).thenReturn(Optional.of("123456"));
 
 		assertThatExceptionOfType(ThrowableProblem.class).isThrownBy(
