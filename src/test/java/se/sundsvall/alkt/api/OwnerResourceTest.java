@@ -26,6 +26,8 @@ import se.sundsvall.alkt.service.AlktService;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class OwnerResourceTest {
 
+	private static final String PATH = "/owners/{partyId}";
+
 	@MockBean
 	private AlktService alktServiceMock;
 
@@ -38,13 +40,13 @@ class OwnerResourceTest {
 	private static final String VALID_UUID = UUID.randomUUID().toString();
 
 	@Test
-	void testGetOwnersAndCasesByPartyId_whenFoundOwner_shouldReturnListOfOwners() {
+	void getOwnersAndCasesByPartyIdWhenFoundOwnerShouldReturnListOfOwners() {
 		var ownerList = List.of(Owner.builder().build());
 
 		when(alktServiceMock.getOwners(VALID_UUID)).thenReturn(ownerList);
 
 		webTestClient.get()
-			.uri("/owners/{partyId}", VALID_UUID)
+			.uri(PATH, VALID_UUID)
 			.exchange()
 			.expectStatus().isOk()
 			.expectHeader().contentType(APPLICATION_JSON_VALUE)
@@ -55,13 +57,13 @@ class OwnerResourceTest {
 	}
 
 	@Test
-	void testGetOwnersAndCasesByPartyId_whenNoOwners_shouldReturnEmptyList() {
+	void getOwnersAndCasesByPartyIdWhenNoOwnersShouldReturnEmptyList() {
 		List<Owner> ownerList = List.of();
 
 		when(alktServiceMock.getOwners(VALID_UUID)).thenReturn(ownerList);
 
 		webTestClient.get()
-				.uri("/owners/{partyId}", VALID_UUID)
+				.uri(PATH, VALID_UUID)
 				.exchange()
 				.expectStatus().isOk()
 				.expectHeader().contentType(APPLICATION_JSON_VALUE)
@@ -72,11 +74,11 @@ class OwnerResourceTest {
 	}
 
 	@Test
-	void testGetOwnersAndCasesByPArtyId_whenFaultyUuid() {
+	void getOwnersAndCasesByPArtyIdWhenFaultyUuid() {
 		String faultyUuid = "faultyUuid";
 
 		webTestClient.get()
-				.uri("/owners/{partyId}", faultyUuid)
+				.uri(PATH, faultyUuid)
 				.exchange()
 				.expectStatus().isBadRequest()
 				.expectHeader().contentType(APPLICATION_PROBLEM_JSON_VALUE)

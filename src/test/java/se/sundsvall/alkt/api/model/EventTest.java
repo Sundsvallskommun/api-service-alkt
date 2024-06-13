@@ -1,17 +1,17 @@
 package se.sundsvall.alkt.api.model;
 
-import org.hamcrest.MatcherAssert;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidGettersAndSetters;
 import static com.google.code.beanmatchers.BeanMatchers.registerValueGenerator;
 import static org.hamcrest.core.AllOf.allOf;
 
-public class EventTest {
+import java.time.LocalDateTime;
+
+import org.hamcrest.MatcherAssert;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+class EventTest {
 
 	@BeforeAll
 	static void setup() {

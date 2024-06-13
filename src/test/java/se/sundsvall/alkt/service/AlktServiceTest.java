@@ -30,6 +30,10 @@ import se.sundsvall.alkt.integration.party.PartyIntegration;
 @ExtendWith(MockitoExtension.class)
 class AlktServiceTest {
 
+	private static final String PLAIN_TEXT_DESCRIPTION = "plain text description";
+
+	private static final String LEGAL_ID = "123456-7890";
+
 	@Mock
 	private PartyIntegration partyIntegrationMock;
 
@@ -48,8 +52,8 @@ class AlktServiceTest {
 	@Test
 	void getOwners() {
 		String uuid = UUID.randomUUID().toString();
-		when(partyIntegrationMock.getLegalIdWithHyphen(uuid)).thenReturn("123456-7890");
-		when(ownerRepositoryMock.findByLegalId("123456-7890")).thenReturn(List.of(TestObjectFactory.generateOwnerEntity()));
+		when(partyIntegrationMock.getLegalIdWithHyphen(uuid)).thenReturn(LEGAL_ID);
+		when(ownerRepositoryMock.findByLegalId(LEGAL_ID)).thenReturn(List.of(TestObjectFactory.generateOwnerEntity()));
 		when(plainTextRepositoryMock.findDescriptionForCase(any())).thenReturn(TestObjectFactory.generateOptionalPlainTextEntity());
 		when(plainTextRepositoryMock.findDescriptionForEvent(any())).thenReturn(TestObjectFactory.generateOptionalPlainTextEntity());
 		when(plainTextRepositoryMock.findDescriptionForDecision(any())).thenReturn(TestObjectFactory.generateOptionalPlainTextEntity());
@@ -58,12 +62,12 @@ class AlktServiceTest {
 
 		//We already verify that mapping to Owners class is correct when testing the mapper.
 		//Here we only verify that the Owner object(s) gets decorated with Descriptions.
-		assertThat(owner.getEstablishments().getFirst().getCases().getFirst().getDescription()).isEqualTo("plain text description");
-		assertThat(owner.getEstablishments().getFirst().getCases().getFirst().getEvents().getFirst().getDescription()).isEqualTo("plain text description");
-		assertThat(owner.getEstablishments().getFirst().getCases().getFirst().getDecision().getDescription()).isEqualTo("plain text description");
+		assertThat(owner.getEstablishments().getFirst().getCases().getFirst().getDescription()).isEqualTo(PLAIN_TEXT_DESCRIPTION);
+		assertThat(owner.getEstablishments().getFirst().getCases().getFirst().getEvents().getFirst().getDescription()).isEqualTo(PLAIN_TEXT_DESCRIPTION);
+		assertThat(owner.getEstablishments().getFirst().getCases().getFirst().getDecision().getDescription()).isEqualTo(PLAIN_TEXT_DESCRIPTION);
 
 		verify(partyIntegrationMock).getLegalIdWithHyphen(uuid);
-		verify(ownerRepositoryMock).findByLegalId("123456-7890");
+		verify(ownerRepositoryMock).findByLegalId(LEGAL_ID);
 		verify(plainTextRepositoryMock).findDescriptionForCase(any());
 		verify(plainTextRepositoryMock).findDescriptionForEvent(any());
 		verify(plainTextRepositoryMock).findDescriptionForDecision(any());
@@ -78,7 +82,7 @@ class AlktServiceTest {
 		when(plainTextRepositoryMock.findDescriptionForDecision(any())).thenReturn(TestObjectFactory.generateOptionalPlainTextEntity());
 
 		try(MockedStatic<EntityMapper> mapper = Mockito.mockStatic(EntityMapper.class, Mockito.CALLS_REAL_METHODS)) {
-			var aCase = alktService.getCase(123);
+			alktService.getCase(123);
 			mapper.verify(() -> EntityMapper.toCase(same(caseEntity)));
 		}
 

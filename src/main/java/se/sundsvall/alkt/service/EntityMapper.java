@@ -1,7 +1,5 @@
 package se.sundsvall.alkt.service;
 
-import static lombok.AccessLevel.PRIVATE;
-
 import java.util.Optional;
 
 import se.sundsvall.alkt.api.model.Case;
@@ -15,10 +13,11 @@ import se.sundsvall.alkt.integration.db.entity.CaseEventEntity;
 import se.sundsvall.alkt.integration.db.entity.EstablishmentEntity;
 import se.sundsvall.alkt.integration.db.entity.OwnerEntity;
 
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor(access = PRIVATE)
 public final class EntityMapper {
+
+	private EntityMapper() {
+		// Prevent instantiation
+	}
 
 	public static Owner toOwnerResponse(OwnerEntity ownerEntity) {
 		return Owner.builder()

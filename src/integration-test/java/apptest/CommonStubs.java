@@ -8,7 +8,11 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
-public class CommonStubs {
+public final class CommonStubs {
+
+	private CommonStubs() {
+	// Private constructor to hide the implicit public one
+	}
 
 	public static void stubAccessToken() {
 		stubAccessToken("/token");
