@@ -16,7 +16,9 @@ class OwnerIT extends AbstractAppTest {
 
 	private static final String RESPONSE_FILE = "response.json";
 
-	private static final String BASE_URL = "/owners/";
+	private static final String MUNICIPALITY_ID = "2281";
+
+	private static final String BASE_URL = "/" + MUNICIPALITY_ID + "/owners/";
 
 	@BeforeEach
 	public void setup() {

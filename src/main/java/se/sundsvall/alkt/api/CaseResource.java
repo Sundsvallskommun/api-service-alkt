@@ -1,6 +1,7 @@
 package se.sundsvall.alkt.api;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,18 +16,19 @@ import org.zalando.problem.Problem;
 import org.zalando.problem.violations.ConstraintViolationProblem;
 import se.sundsvall.alkt.api.model.Case;
 import se.sundsvall.alkt.service.AlktService;
+import se.sundsvall.dept44.common.validators.annotation.ValidMunicipalityId;
 
 import static org.springframework.http.MediaType.APPLICATION_PROBLEM_JSON_VALUE;
 
 @Validated
 @RestController
-@RequestMapping("/case")
+@RequestMapping("/{municipalityId}/case")
 @Tag(name = "Case", description = "Case operations")
 public class CaseResource {
 
 	private final AlktService alktService;
 
-	public CaseResource(AlktService alktService) {
+	public CaseResource(final AlktService alktService) {
 		this.alktService = alktService;
 	}
 
@@ -46,7 +48,9 @@ public class CaseResource {
 		}
 	)
 	@GetMapping(path = "/{caseId}")
-	ResponseEntity<Case> getCase(@PathVariable Integer caseId) {
-		return ResponseEntity.ok(alktService.getCase(caseId));
+	ResponseEntity<Case> getCase(
+		@Parameter(name = "municipalityId", description = "Municipality id") @ValidMunicipalityId @PathVariable("municipalityId") final String municipalityId,
+		@PathVariable final Integer caseId) {
+		return ResponseEntity.ok(alktService.getCase(caseId, municipalityId));
 	}
 }
