@@ -27,9 +27,9 @@ public class PartyIntegration {
 	 * @param partyId the partyId to get legalId for
 	 * @return the legalId
 	 */
-	public String getLegalIdWithHyphen(String partyId) {
-		var legalId = partyClient.getLegalId(PartyType.ENTERPRISE, partyId)
-				.or(() -> partyClient.getLegalId(PartyType.PRIVATE, partyId))
+	public String getLegalIdWithHyphen(String partyId, String municipalityId) {
+		var legalId = partyClient.getLegalId(municipalityId,PartyType.ENTERPRISE, partyId)
+				.or(() -> partyClient.getLegalId(municipalityId,PartyType.PRIVATE, partyId))
 				.orElseThrow(() -> Problem.builder()
 						.withTitle(format(COULD_NOT_FIND_LEGAL_ID_FOR_PARTY_ID, partyId))
 						.withStatus(Status.NOT_FOUND)

@@ -23,6 +23,8 @@ import generated.se.sundsvall.party.PartyType;
 public interface PartyClient {
 
 	@Cacheable("legalIds")
-	@GetMapping(path = "/{type}/{partyId}/legalId", produces = { TEXT_PLAIN_VALUE, APPLICATION_PROBLEM_JSON_VALUE })
-	Optional<String> getLegalId(@PathVariable("type") PartyType partyType, @PathVariable("partyId") String partyId);
+	@GetMapping(path = "/{municipalityId}/{type}/{partyId}/legalId", produces = { TEXT_PLAIN_VALUE, APPLICATION_PROBLEM_JSON_VALUE })
+	Optional<String> getLegalId(
+		@PathVariable("municipalityId") String municipalityId,
+		@PathVariable("type") PartyType partyType, @PathVariable("partyId") String partyId);
 }

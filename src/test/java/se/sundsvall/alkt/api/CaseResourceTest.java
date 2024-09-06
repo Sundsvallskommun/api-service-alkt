@@ -10,6 +10,7 @@ import se.sundsvall.alkt.api.model.Case;
 import se.sundsvall.alkt.service.AlktService;
 
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
@@ -29,27 +30,29 @@ class CaseResourceTest {
 	@Test
 	void getCase() {
 
-		when(alktServiceMock.getCase(anyInt())).thenReturn(new Case());
+		when(alktServiceMock.getCase(anyInt(), anyString())).thenReturn(new Case());
 
-		var id = 123;
+		final var id = 123;
+		final var municipalityId = "2281";
 
 		webTestClient.get()
-			.uri("/case/{id}", id)
+			.uri("/{municipalityId}/case/{id}", municipalityId,id)
 			.exchange()
 			.expectStatus().isOk()
 			.expectHeader().contentType(APPLICATION_JSON_VALUE)
 			.expectBody(Case.class);
 
-		verify(alktServiceMock).getCase(id);
+		verify(alktServiceMock).getCase(id, municipalityId);
 	}
 
 	@Test
 	void getCaseBadRequest() {
 
-		var id = "not-integer";
+		final var id = "not-integer";
+		final var municipalityId = "2281";
 
 		webTestClient.get()
-			.uri("/case/{id}", id)
+			.uri("/{municipalityId}/case/{id}", municipalityId,id)
 			.exchange()
 			.expectStatus().isBadRequest()
 			.expectHeader().contentType(APPLICATION_PROBLEM_JSON_VALUE)

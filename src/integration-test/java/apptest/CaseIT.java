@@ -15,7 +15,9 @@ class CaseIT extends AbstractAppTest {
 
 	private static final String RESPONSE_FILE = "response.json";
 
-	private static final String BASE_URL = "/case/";
+	private static final String MUNICIPALITY_ID = "2281";
+
+	private static final String BASE_URL = "/" + MUNICIPALITY_ID + "/case/";
 
 	@Test
 	void test01_getCase_shouldReturnCases() {

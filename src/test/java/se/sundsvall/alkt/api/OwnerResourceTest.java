@@ -1,6 +1,7 @@
 package se.sundsvall.alkt.api;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -26,7 +27,7 @@ import se.sundsvall.alkt.service.AlktService;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class OwnerResourceTest {
 
-	private static final String PATH = "/owners/{partyId}";
+	private static final String PATH = "/{municipalityId}/owners/{partyId}";
 
 	@MockBean
 	private AlktService alktServiceMock;
@@ -38,21 +39,22 @@ class OwnerResourceTest {
 	private WebTestClient webTestClient;
 
 	private static final String VALID_UUID = UUID.randomUUID().toString();
+	private static final String MUNICIPALITY_ID = "2281";
 
 	@Test
 	void getOwnersAndCasesByPartyIdWhenFoundOwnerShouldReturnListOfOwners() {
 		var ownerList = List.of(Owner.builder().build());
 
-		when(alktServiceMock.getOwners(VALID_UUID)).thenReturn(ownerList);
+		when(alktServiceMock.getOwners(VALID_UUID,MUNICIPALITY_ID)).thenReturn(ownerList);
 
 		webTestClient.get()
-			.uri(PATH, VALID_UUID)
+			.uri(PATH, MUNICIPALITY_ID,VALID_UUID)
 			.exchange()
 			.expectStatus().isOk()
 			.expectHeader().contentType(APPLICATION_JSON_VALUE)
 			.expectBody(List.class);
 
-		verify(alktServiceMock).getOwners(alktServiceArgumentCaptor.capture());
+		verify(alktServiceMock).getOwners(alktServiceArgumentCaptor.capture(), eq(MUNICIPALITY_ID));
 		assertEquals(VALID_UUID, alktServiceArgumentCaptor.getValue());
 	}
 
@@ -60,16 +62,16 @@ class OwnerResourceTest {
 	void getOwnersAndCasesByPartyIdWhenNoOwnersShouldReturnEmptyList() {
 		List<Owner> ownerList = List.of();
 
-		when(alktServiceMock.getOwners(VALID_UUID)).thenReturn(ownerList);
+		when(alktServiceMock.getOwners(VALID_UUID,MUNICIPALITY_ID)).thenReturn(ownerList);
 
 		webTestClient.get()
-				.uri(PATH, VALID_UUID)
+				.uri(PATH, MUNICIPALITY_ID,VALID_UUID)
 				.exchange()
 				.expectStatus().isOk()
 				.expectHeader().contentType(APPLICATION_JSON_VALUE)
 				.expectBody(List.class);
 
-		verify(alktServiceMock).getOwners(alktServiceArgumentCaptor.capture());
+		verify(alktServiceMock).getOwners(alktServiceArgumentCaptor.capture(), eq(MUNICIPALITY_ID));
 		assertEquals(VALID_UUID, alktServiceArgumentCaptor.getValue());
 	}
 
@@ -78,7 +80,7 @@ class OwnerResourceTest {
 		String faultyUuid = "faultyUuid";
 
 		webTestClient.get()
-				.uri(PATH, faultyUuid)
+				.uri(PATH, MUNICIPALITY_ID,faultyUuid)
 				.exchange()
 				.expectStatus().isBadRequest()
 				.expectHeader().contentType(APPLICATION_PROBLEM_JSON_VALUE)
@@ -89,6 +91,6 @@ class OwnerResourceTest {
 				.jsonPath("$.violations[0].field").isEqualTo("getOwners.partyId")
 				.jsonPath("$.violations[0].message").isEqualTo("not a valid UUID");
 
-		verify(alktServiceMock, times(0)).getOwners(alktServiceArgumentCaptor.capture());
+		verify(alktServiceMock, times(0)).getOwners(alktServiceArgumentCaptor.capture(), eq(MUNICIPALITY_ID));
 	}
 }

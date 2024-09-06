@@ -15,9 +15,11 @@ import org.zalando.problem.violations.ConstraintViolationProblem;
 
 import se.sundsvall.alkt.api.model.Owner;
 import se.sundsvall.alkt.service.AlktService;
+import se.sundsvall.dept44.common.validators.annotation.ValidMunicipalityId;
 import se.sundsvall.dept44.common.validators.annotation.ValidUuid;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,13 +27,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Validated
 @RestController
-@RequestMapping("/owners")
+@RequestMapping("/{municipalityId}/owners")
 @Tag(name = "Owner", description = "Owner operations")
 public class OwnerResource {
 
 	private final AlktService alktService;
 
-	public OwnerResource(AlktService alktService) {
+	public OwnerResource(final AlktService alktService) {
 		this.alktService = alktService;
 	}
 
@@ -52,8 +54,10 @@ public class OwnerResource {
 		}
 	)
 	@GetMapping(path = "/{partyId}")
-	ResponseEntity<List<Owner>> getOwners(@ValidUuid @PathVariable String partyId) {
-		return ResponseEntity.ok(alktService.getOwners(partyId));
+	ResponseEntity<List<Owner>> getOwners(
+		@Parameter(name = "municipalityId", description = "Municipality id") @ValidMunicipalityId @PathVariable("municipalityId") final String municipalityId,
+		@ValidUuid @PathVariable final String partyId) {
+		return ResponseEntity.ok(alktService.getOwners(partyId,municipalityId));
 	}
 
 }
