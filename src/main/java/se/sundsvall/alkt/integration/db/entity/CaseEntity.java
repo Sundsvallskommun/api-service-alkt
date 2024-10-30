@@ -29,10 +29,10 @@ public class CaseEntity {
 	@Column(name = "ArendeID", nullable = false)
 	private int id;
 
-	@Column(name = "ObjektID", insertable=false, updatable=false)
+	@Column(name = "ObjektID", insertable = false, updatable = false)
 	private Integer establishmentId;
 
-	@Column(name = "HandlaggarID", insertable=false, updatable=false)
+	@Column(name = "HandlaggarID", insertable = false, updatable = false)
 	private String caseManagerId;
 
 	@OneToMany(mappedBy = "relatedCase", fetch = FetchType.EAGER)
@@ -61,19 +61,21 @@ public class CaseEntity {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof CaseEntity that)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof CaseEntity that))
+			return false;
 		return Objects.equals(id, that.id)
-				&& Objects.equals(caseManagerId, that.caseManagerId)
-				&& Objects.equals(events, that.events)
-				&& Objects.equals(decision, that.decision)
-				&& Objects.equals(type, that.type)
-				&& Objects.equals(referenceNumber, that.referenceNumber)
-				&& Objects.equals(establishmentId, that.establishmentId)
-				&& Objects.equals(opened, that.opened)
-				&& Objects.equals(closed, that.closed)
-				&& Objects.equals(changed, that.changed)
-				&& Objects.equals(posted, that.posted);
+			&& Objects.equals(caseManagerId, that.caseManagerId)
+			&& Objects.equals(events, that.events)
+			&& Objects.equals(decision, that.decision)
+			&& Objects.equals(type, that.type)
+			&& Objects.equals(referenceNumber, that.referenceNumber)
+			&& Objects.equals(establishmentId, that.establishmentId)
+			&& Objects.equals(opened, that.opened)
+			&& Objects.equals(closed, that.closed)
+			&& Objects.equals(changed, that.changed)
+			&& Objects.equals(posted, that.posted);
 	}
 
 	@Override
@@ -84,15 +86,15 @@ public class CaseEntity {
 	@Override
 	public String toString() {
 		return "CaseEntity{" +
-				"id=" + id +
-				", establishmentId=" + establishmentId +
-				", caseManagerId='" + caseManagerId + '\'' +
-				", type='" + type + '\'' +
-				", referenceNumber='" + referenceNumber + '\'' +
-				", opened=" + opened +
-				", closed=" + closed +
-				", changed=" + changed +
-				", posted=" + posted +
-				'}';
+			"id=" + id +
+			", establishmentId=" + establishmentId +
+			", caseManagerId='" + caseManagerId + '\'' +
+			", type='" + type + '\'' +
+			", referenceNumber='" + referenceNumber + '\'' +
+			", opened=" + opened +
+			", closed=" + closed +
+			", changed=" + changed +
+			", posted=" + posted +
+			'}';
 	}
 }

@@ -15,10 +15,10 @@ class PlainTextIdTest {
 	@Test
 	void testBean() {
 		assertThat(PlainTextId.class, allOf(
-				hasValidBeanConstructor(),
-				hasValidGettersAndSetters(),
-				hasValidBeanHashCode(),
-				hasValidBeanEquals(),
-				hasValidBeanToString()));
+			hasValidBeanConstructor(),
+			hasValidGettersAndSetters(),
+			hasValidBeanHashCode(),
+			hasValidBeanEquals(),
+			hasValidBeanToString()));
 	}
 }

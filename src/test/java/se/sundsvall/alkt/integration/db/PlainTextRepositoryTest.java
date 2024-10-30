@@ -62,16 +62,16 @@ class PlainTextRepositoryTest {
 
 	private Optional<PlainTextEntity> getCachedPlainTextEntityForCase(String code) {
 		return Optional.ofNullable(cacheManager.getCache(CASE_DESCRIPTION_CACHE))
-				.map(cache -> cache.get(code, PlainTextEntity.class));
+			.map(cache -> cache.get(code, PlainTextEntity.class));
 	}
 
 	private Optional<PlainTextEntity> getCachedPlainTextEntityForEvent(String code) {
 		return Optional.ofNullable(cacheManager.getCache(EVENT_DESCRIPTION_CACHE))
-				.map(cache -> cache.get(code, PlainTextEntity.class));
+			.map(cache -> cache.get(code, PlainTextEntity.class));
 	}
 
 	private Optional<PlainTextEntity> getCachedPlainTextEntityForDecision(String code) {
 		return Optional.ofNullable(cacheManager.getCache(DECISION_DESCRIPTION_CACHE))
-				.map(cache -> cache.get(code, PlainTextEntity.class));
+			.map(cache -> cache.get(code, PlainTextEntity.class));
 	}
 }

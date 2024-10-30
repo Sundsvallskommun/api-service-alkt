@@ -26,10 +26,10 @@ class CaseDecisionEntityTest {
 	@Test
 	void testBean() {
 		assertThat(CaseDecisionEntity.class, allOf(
-				hasValidBeanConstructor(),
-				hasValidGettersAndSetters(),
-				hasValidBeanHashCode(),
-				hasValidBeanEquals(),
-				hasValidBeanToStringExcluding("relatedCase")));
+			hasValidBeanConstructor(),
+			hasValidGettersAndSetters(),
+			hasValidBeanHashCode(),
+			hasValidBeanEquals(),
+			hasValidBeanToStringExcluding("relatedCase")));
 	}
 }

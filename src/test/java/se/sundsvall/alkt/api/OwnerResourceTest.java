@@ -45,10 +45,10 @@ class OwnerResourceTest {
 	void getOwnersAndCasesByPartyIdWhenFoundOwnerShouldReturnListOfOwners() {
 		var ownerList = List.of(Owner.builder().build());
 
-		when(alktServiceMock.getOwners(VALID_UUID,MUNICIPALITY_ID)).thenReturn(ownerList);
+		when(alktServiceMock.getOwners(VALID_UUID, MUNICIPALITY_ID)).thenReturn(ownerList);
 
 		webTestClient.get()
-			.uri(PATH, MUNICIPALITY_ID,VALID_UUID)
+			.uri(PATH, MUNICIPALITY_ID, VALID_UUID)
 			.exchange()
 			.expectStatus().isOk()
 			.expectHeader().contentType(APPLICATION_JSON_VALUE)
@@ -62,14 +62,14 @@ class OwnerResourceTest {
 	void getOwnersAndCasesByPartyIdWhenNoOwnersShouldReturnEmptyList() {
 		List<Owner> ownerList = List.of();
 
-		when(alktServiceMock.getOwners(VALID_UUID,MUNICIPALITY_ID)).thenReturn(ownerList);
+		when(alktServiceMock.getOwners(VALID_UUID, MUNICIPALITY_ID)).thenReturn(ownerList);
 
 		webTestClient.get()
-				.uri(PATH, MUNICIPALITY_ID,VALID_UUID)
-				.exchange()
-				.expectStatus().isOk()
-				.expectHeader().contentType(APPLICATION_JSON_VALUE)
-				.expectBody(List.class);
+			.uri(PATH, MUNICIPALITY_ID, VALID_UUID)
+			.exchange()
+			.expectStatus().isOk()
+			.expectHeader().contentType(APPLICATION_JSON_VALUE)
+			.expectBody(List.class);
 
 		verify(alktServiceMock).getOwners(alktServiceArgumentCaptor.capture(), eq(MUNICIPALITY_ID));
 		assertEquals(VALID_UUID, alktServiceArgumentCaptor.getValue());
@@ -80,16 +80,16 @@ class OwnerResourceTest {
 		String faultyUuid = "faultyUuid";
 
 		webTestClient.get()
-				.uri(PATH, MUNICIPALITY_ID,faultyUuid)
-				.exchange()
-				.expectStatus().isBadRequest()
-				.expectHeader().contentType(APPLICATION_PROBLEM_JSON_VALUE)
-				.expectBody()
-				.jsonPath("$.type").isEqualTo("https://zalando.github.io/problem/constraint-violation")
-				.jsonPath("$.status").isEqualTo(400)
-				.jsonPath("$.title").isEqualTo("Constraint Violation")
-				.jsonPath("$.violations[0].field").isEqualTo("getOwners.partyId")
-				.jsonPath("$.violations[0].message").isEqualTo("not a valid UUID");
+			.uri(PATH, MUNICIPALITY_ID, faultyUuid)
+			.exchange()
+			.expectStatus().isBadRequest()
+			.expectHeader().contentType(APPLICATION_PROBLEM_JSON_VALUE)
+			.expectBody()
+			.jsonPath("$.type").isEqualTo("https://zalando.github.io/problem/constraint-violation")
+			.jsonPath("$.status").isEqualTo(400)
+			.jsonPath("$.title").isEqualTo("Constraint Violation")
+			.jsonPath("$.violations[0].field").isEqualTo("getOwners.partyId")
+			.jsonPath("$.violations[0].message").isEqualTo("not a valid UUID");
 
 		verify(alktServiceMock, times(0)).getOwners(alktServiceArgumentCaptor.capture(), eq(MUNICIPALITY_ID));
 	}

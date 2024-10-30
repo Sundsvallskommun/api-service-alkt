@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Event {
-	@JsonIgnore //Not needed in reponse but when decorating the event Description
+	@JsonIgnore // Not needed in reponse but when decorating the event Description
 	private String type;
 
 	@Schema(description = "Description of the event", example = "Remiss till skattemyndigheten")

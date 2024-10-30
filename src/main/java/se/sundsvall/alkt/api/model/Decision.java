@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Decision {
 
-	@JsonIgnore //Not needed in reponse but when decorating the decision Description
+	@JsonIgnore // Not needed in reponse but when decorating the decision Description
 	private String type;
 
 	@Schema(description = "A description of which decision was made", example = "Tillstånd allmänhet")

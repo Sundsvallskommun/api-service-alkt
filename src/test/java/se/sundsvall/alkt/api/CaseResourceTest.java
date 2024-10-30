@@ -36,7 +36,7 @@ class CaseResourceTest {
 		final var municipalityId = "2281";
 
 		webTestClient.get()
-			.uri("/{municipalityId}/case/{id}", municipalityId,id)
+			.uri("/{municipalityId}/case/{id}", municipalityId, id)
 			.exchange()
 			.expectStatus().isOk()
 			.expectHeader().contentType(APPLICATION_JSON_VALUE)
@@ -52,14 +52,14 @@ class CaseResourceTest {
 		final var municipalityId = "2281";
 
 		webTestClient.get()
-			.uri("/{municipalityId}/case/{id}", municipalityId,id)
+			.uri("/{municipalityId}/case/{id}", municipalityId, id)
 			.exchange()
 			.expectStatus().isBadRequest()
 			.expectHeader().contentType(APPLICATION_PROBLEM_JSON_VALUE)
 			.expectBody()
 			.json("""
 				{
-					"detail": "Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; For input string: \\"not-integer\\"",
+					"detail": "Method parameter 'caseId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; For input string: \\"not-integer\\"",
 					"status": 400,
 					"title": "Bad Request"
 				}

@@ -17,7 +17,7 @@ class AlkTCacheConfigTest {
 
 	@Test
 	void testCustomize() {
-		//Verify that the cacheManager is set up with the correct cache names.
+		// Verify that the cacheManager is set up with the correct cache names.
 		cacheManagerSpy = new ConcurrentMapCacheManager();
 		AlkTCacheConfig alkTCacheConfig = new AlkTCacheConfig();
 		alkTCacheConfig.customize((ConcurrentMapCacheManager) cacheManagerSpy);

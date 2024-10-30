@@ -21,7 +21,7 @@ class OwnerTest {
 	@Test
 	void testOwnerBean() {
 		MatcherAssert.assertThat(Owner.class, allOf(
-				hasValidBeanConstructor(),
-				hasValidGettersAndSetters()));
+			hasValidBeanConstructor(),
+			hasValidGettersAndSetters()));
 	}
 }

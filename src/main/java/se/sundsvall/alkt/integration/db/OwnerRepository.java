@@ -15,8 +15,9 @@ public interface OwnerRepository extends Repository<OwnerEntity, Integer> {
 
 	/**
 	 * Find all owners by legalId
-	 * @param legalId the legalId of the owner
-	 * @return a {@link List} of {@link OwnerEntity}
+	 * 
+	 * @param  legalId the legalId of the owner
+	 * @return         a {@link List} of {@link OwnerEntity}
 	 */
 	List<OwnerEntity> findByLegalId(String legalId);
 }

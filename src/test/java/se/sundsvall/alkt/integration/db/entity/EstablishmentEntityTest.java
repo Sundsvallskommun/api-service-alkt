@@ -26,11 +26,11 @@ class EstablishmentEntityTest {
 	@Test
 	void testBean() {
 		assertThat(EstablishmentEntity.class, allOf(
-				hasValidBeanConstructor(),
-				hasValidGettersAndSetters(),
-				hasValidBeanHashCode(),
-				hasValidBeanEquals(),
-				hasValidBeanToString(),
-				hasValidBeanToString()));
+			hasValidBeanConstructor(),
+			hasValidGettersAndSetters(),
+			hasValidBeanHashCode(),
+			hasValidBeanEquals(),
+			hasValidBeanToString(),
+			hasValidBeanToString()));
 	}
 }

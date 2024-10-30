@@ -82,9 +82,9 @@ class PartyConfigurationTest {
 
 		// Assert ErrorDecoder
 		assertThat(errorDecoderCaptor.getValue())
-				.isInstanceOf(ProblemErrorDecoder.class)
-				.hasFieldOrPropertyWithValue("bypassResponseCodes", List.of(NOT_FOUND.value()))
-				.hasFieldOrPropertyWithValue("integrationName", CLIENT_ID);
+			.isInstanceOf(ProblemErrorDecoder.class)
+			.hasFieldOrPropertyWithValue("bypassResponseCodes", List.of(NOT_FOUND.value()))
+			.hasFieldOrPropertyWithValue("integrationName", CLIENT_ID);
 	}
 
 	@Test

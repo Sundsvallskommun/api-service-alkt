@@ -27,17 +27,18 @@ public interface PlainTextRepository extends Repository<PlainTextEntity, PlainTe
 	/**
 	 * Find all PlainTextEntity by kod and kodtyp
 	 * The plainTextId is a composite key of kod and kodtyp
-	 * @param code the "code" for the PlainTextEntity
-	 * @param codeType the "codeType" for the PlainTextEntity
-	 * @return a {@link PlainTextEntity}
+	 * 
+	 * @param  code     the "code" for the PlainTextEntity
+	 * @param  codeType the "codeType" for the PlainTextEntity
+	 * @return          a {@link PlainTextEntity}
 	 */
 	PlainTextEntity findByIdCodeAndIdCodeType(String code, String codeType);
 
-
 	/**
 	 * Find description for a case, "A" is for "Ärende"
-	 * @param code the "code" for the case
-	 * @return a {@link List} of {@link PlainTextEntity}
+	 * 
+	 * @param  code the "code" for the case
+	 * @return      a {@link List} of {@link PlainTextEntity}
 	 */
 	@Cacheable(value = CASE_DESCRIPTION_CACHE)
 	default Optional<PlainTextEntity> findDescriptionForCase(String code) {
@@ -46,8 +47,9 @@ public interface PlainTextRepository extends Repository<PlainTextEntity, PlainTe
 
 	/**
 	 * Find description for an event, "D" is for "Händelse"
-	 * @param code the "code" for the event
-	 * @return a {@link List} of {@link PlainTextEntity}
+	 * 
+	 * @param  code the "code" for the event
+	 * @return      a {@link List} of {@link PlainTextEntity}
 	 */
 	@Cacheable(value = EVENT_DESCRIPTION_CACHE)
 	default Optional<PlainTextEntity> findDescriptionForEvent(String code) {
@@ -56,11 +58,12 @@ public interface PlainTextRepository extends Repository<PlainTextEntity, PlainTe
 
 	/**
 	 * Find description for a decisions, "B" is for "Beslut"
-	 * @param code the "code" for the decision
-	 * @return a {@link List} of {@link PlainTextEntity}
+	 * 
+	 * @param  code the "code" for the decision
+	 * @return      a {@link List} of {@link PlainTextEntity}
 	 */
 	@Cacheable(value = DECISION_DESCRIPTION_CACHE)
-	default Optional<PlainTextEntity> findDescriptionForDecision(String code){
+	default Optional<PlainTextEntity> findDescriptionForDecision(String code) {
 		return Optional.ofNullable(findByIdCodeAndIdCodeType(code, "B"));
 	}
 }

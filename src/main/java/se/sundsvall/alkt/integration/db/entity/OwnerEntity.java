@@ -46,14 +46,16 @@ public class OwnerEntity {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof OwnerEntity that)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof OwnerEntity that))
+			return false;
 		return Objects.equals(id, that.id)
-				&& Objects.equals(legalId, that.legalId)
-				&& Objects.equals(companyName, that.companyName)
-				&& Objects.equals(changed, that.changed)
-				&& Objects.equals(posted, that.posted)
-				&& Objects.equals(establishments, that.establishments);
+			&& Objects.equals(legalId, that.legalId)
+			&& Objects.equals(companyName, that.companyName)
+			&& Objects.equals(changed, that.changed)
+			&& Objects.equals(posted, that.posted)
+			&& Objects.equals(establishments, that.establishments);
 	}
 
 	@Override
@@ -64,11 +66,11 @@ public class OwnerEntity {
 	@Override
 	public String toString() {
 		return "OwnerEntity{" +
-				"id=" + id +
-				", legalId='" + legalId + '\'' +
-				", companyName='" + companyName + '\'' +
-				", changed=" + changed +
-				", posted=" + posted +
-				'}';
+			"id=" + id +
+			", legalId='" + legalId + '\'' +
+			", companyName='" + companyName + '\'' +
+			", changed=" + changed +
+			", posted=" + posted +
+			'}';
 	}
 }
