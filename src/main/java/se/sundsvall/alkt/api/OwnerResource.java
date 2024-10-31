@@ -40,24 +40,26 @@ public class OwnerResource {
 	/**
 	 * Get owners and their cases by partyId.
 	 * Some organizations occur multiple times in the database, hence why it returns a list.
-	 * @param partyId partyId for a person or an organization
-	 * @return List of owners and their cases
+	 * 
+	 * @param  partyId partyId for a person or an organization
+	 * @return         List of owners and their cases
 	 */
 	@Operation(
 		summary = "Get owners and their cases by partyId",
 		responses = {
 			@ApiResponse(responseCode = "200", description = "Successful Operation", useReturnTypeSchema = true),
-			@ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = {Problem.class, ConstraintViolationProblem.class}))),
+			@ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(oneOf = {
+				Problem.class, ConstraintViolationProblem.class
+			}))),
 			@ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class))),
 			@ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class))),
 			@ApiResponse(responseCode = "502", description = "Bad Gateway", content = @Content(mediaType = APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = Problem.class)))
-		}
-	)
+		})
 	@GetMapping(path = "/{partyId}")
 	ResponseEntity<List<Owner>> getOwners(
 		@Parameter(name = "municipalityId", description = "Municipality id") @ValidMunicipalityId @PathVariable("municipalityId") final String municipalityId,
 		@ValidUuid @PathVariable final String partyId) {
-		return ResponseEntity.ok(alktService.getOwners(partyId,municipalityId));
+		return ResponseEntity.ok(alktService.getOwners(partyId, municipalityId));
 	}
 
 }

@@ -26,10 +26,10 @@ class OwnerEntityTest {
 	@Test
 	void testBean() {
 		assertThat(OwnerEntity.class, allOf(
-				hasValidBeanConstructor(),
-				hasValidGettersAndSetters(),
-				hasValidBeanHashCode(),
-				hasValidBeanEquals(),
-				hasValidBeanToStringExcluding("establishments")));
+			hasValidBeanConstructor(),
+			hasValidGettersAndSetters(),
+			hasValidBeanHashCode(),
+			hasValidBeanEquals(),
+			hasValidBeanToStringExcluding("establishments")));
 	}
 }

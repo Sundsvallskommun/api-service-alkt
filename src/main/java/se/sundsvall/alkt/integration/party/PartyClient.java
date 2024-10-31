@@ -16,14 +16,15 @@ import se.sundsvall.alkt.integration.party.configuration.PartyConfiguration;
 import generated.se.sundsvall.party.PartyType;
 
 @FeignClient(
-		name = CLIENT_ID,
-		url = "${integration.party.url}",
-		configuration = PartyConfiguration.class
-)
+	name = CLIENT_ID,
+	url = "${integration.party.url}",
+	configuration = PartyConfiguration.class)
 public interface PartyClient {
 
 	@Cacheable("legalIds")
-	@GetMapping(path = "/{municipalityId}/{type}/{partyId}/legalId", produces = { TEXT_PLAIN_VALUE, APPLICATION_PROBLEM_JSON_VALUE })
+	@GetMapping(path = "/{municipalityId}/{type}/{partyId}/legalId", produces = {
+		TEXT_PLAIN_VALUE, APPLICATION_PROBLEM_JSON_VALUE
+	})
 	Optional<String> getLegalId(
 		@PathVariable("municipalityId") String municipalityId,
 		@PathVariable("type") PartyType partyType, @PathVariable("partyId") String partyId);

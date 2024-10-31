@@ -19,7 +19,6 @@ _A service for retrieving owners, their establishments and ongoing cases regardi
    ```bash
    git clone git@github.com:Sundsvallskommun/api-service-alkt.git
    ```
-
 2. **Configure the application:**
 
    Before running the application, you need to set up configuration settings.
@@ -33,9 +32,9 @@ _A service for retrieving owners, their establishments and ongoing cases regardi
 
 4. **Build and run the application:**
 
-     ```bash
-     mvn spring-boot:run
-     ```
+   ```bash
+   mvn spring-boot:run
+   ```
 
 ## Dependencies
 
@@ -46,11 +45,12 @@ The application uses an MSSQL database, which can be started with the following 
 ```bash
 docker run -p1433:1433 --name AlkTSundsvall -e ACCEPT_EULA=yes -e MSSQL_SA_PASSWORD=P@ssword -d mcr.microsoft.com/mssql/server:2019-latest
 ```
+
 ### Services
+
 This microservice depends on the following services:
 
 - **Party**
-
   - **Purpose:** For translating partyId to legalId.
   - **Repository:** [Party](https://github.com/Sundsvallskommun/api-service-party)
   - **Setup Instructions:** Refer to its documentation for installation and configuration steps.
@@ -89,7 +89,6 @@ Configuration is crucial for the application to run successfully. Ensure all nec
   server:
     port: 8080
   ```
-
 - **Database Settings:**
 
   ```yaml
@@ -99,7 +98,6 @@ Configuration is crucial for the application to run successfully. Ensure all nec
       username: your_db_username
       password: your_db_password
   ```
-
 - **Party integration:**
 
   ```yaml

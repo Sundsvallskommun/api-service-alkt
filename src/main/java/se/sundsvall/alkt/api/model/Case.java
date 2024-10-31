@@ -25,7 +25,7 @@ public class Case {
 	@Schema(description = "Registration number", example = "1234567890")
 	private String registrationNumber;
 
-	@JsonIgnore    //Not needed in reponse but when decorating the case Description
+	@JsonIgnore    // Not needed in reponse but when decorating the case Description
 	private String type;
 
 	@Schema(description = "If the case is open or closed", example = "true")

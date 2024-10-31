@@ -33,7 +33,7 @@ class EntityMapperTest {
 		assertThat(aCase.getRegistrationNumber()).isEqualTo("DiarieNumber");
 		assertThat(aCase.getType()).isEqualTo("CaseType");
 		assertThat(aCase.isOpen()).isFalse();
-		assertThat(aCase.getDescription()).isNull();	//Decorated later
+		assertThat(aCase.getDescription()).isNull();	// Decorated later
 		assertThat(aCase.getChanged()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
 		assertThat(aCase.getClosed()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
 		assertThat(aCase.getOpened()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
@@ -43,11 +43,11 @@ class EntityMapperTest {
 		var decision = aCase.getDecision();
 		assertThat(decision.getType()).isEqualTo("DecisionType");
 		assertThat(decision.getCreated()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
-		assertThat(decision.getDescription()).isNull();	//Decorated later
+		assertThat(decision.getDescription()).isNull();	// Decorated later
 
 		var event = aCase.getEvents().getFirst();
 		assertThat(event.getType()).isEqualTo("EventType");
-		assertThat(event.getDescription()).isNull();	//Decorated later
+		assertThat(event.getDescription()).isNull();	// Decorated later
 		assertThat(event.getChanged()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
 		assertThat(event.getCreated()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
 		assertThat(event.getPosted()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));

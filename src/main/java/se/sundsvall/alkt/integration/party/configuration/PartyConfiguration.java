@@ -21,9 +21,9 @@ public class PartyConfiguration {
 	@Bean
 	FeignBuilderCustomizer feignBuilderCustomizer(ClientRegistrationRepository clientRepository, PartyProperties partyProperties) {
 		return FeignMultiCustomizer.create()
-				.withRequestTimeoutsInSeconds(partyProperties.connectTimeout(), partyProperties.readTimeout())
-				.withRetryableOAuth2InterceptorForClientRegistration(clientRepository.findByRegistrationId(CLIENT_ID))
-				.withErrorDecoder(new ProblemErrorDecoder(CLIENT_ID, List.of(NOT_FOUND.value())))
-				.composeCustomizersToOne();
+			.withRequestTimeoutsInSeconds(partyProperties.connectTimeout(), partyProperties.readTimeout())
+			.withRetryableOAuth2InterceptorForClientRegistration(clientRepository.findByRegistrationId(CLIENT_ID))
+			.withErrorDecoder(new ProblemErrorDecoder(CLIENT_ID, List.of(NOT_FOUND.value())))
+			.composeCustomizersToOne();
 	}
 }

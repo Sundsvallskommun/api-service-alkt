@@ -31,7 +31,7 @@ public class CaseEventEntity {
 	@Column(name = "ObjektID")
 	private Integer establishmentId;
 
-	@Column(name = "ArendeID", insertable=false, updatable=false)
+	@Column(name = "ArendeID", insertable = false, updatable = false)
 	private Integer caseId;
 
 	@Column(name = "DiarieNr")
@@ -55,17 +55,19 @@ public class CaseEventEntity {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof CaseEventEntity that)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof CaseEventEntity that))
+			return false;
 		return Objects.equals(id, that.id)
-				&& Objects.equals(establishmentId, that.establishmentId)
-				&& Objects.equals(caseId, that.caseId)
-				&& Objects.equals(referenceNumber, that.referenceNumber)
-				&& Objects.equals(type, that.type)
-				&& Objects.equals(changed, that.changed)
-				&& Objects.equals(event, that.event)
-				&& Objects.equals(posted, that.posted)
-				&& Objects.equals(relatedCase, that.relatedCase);
+			&& Objects.equals(establishmentId, that.establishmentId)
+			&& Objects.equals(caseId, that.caseId)
+			&& Objects.equals(referenceNumber, that.referenceNumber)
+			&& Objects.equals(type, that.type)
+			&& Objects.equals(changed, that.changed)
+			&& Objects.equals(event, that.event)
+			&& Objects.equals(posted, that.posted)
+			&& Objects.equals(relatedCase, that.relatedCase);
 	}
 
 	@Override
@@ -76,14 +78,14 @@ public class CaseEventEntity {
 	@Override
 	public String toString() {
 		return "CaseEventEntity{" +
-				"id=" + id +
-				", establishmentId=" + establishmentId +
-				", caseId=" + caseId +
-				", referenceNumber='" + referenceNumber + '\'' +
-				", type='" + type + '\'' +
-				", changed=" + changed +
-				", event=" + event +
-				", posted=" + posted +
-				'}';
+			"id=" + id +
+			", establishmentId=" + establishmentId +
+			", caseId=" + caseId +
+			", referenceNumber='" + referenceNumber + '\'' +
+			", type='" + type + '\'' +
+			", changed=" + changed +
+			", event=" + event +
+			", posted=" + posted +
+			'}';
 	}
 }

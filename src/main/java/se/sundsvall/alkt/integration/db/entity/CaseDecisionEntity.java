@@ -28,7 +28,7 @@ public class CaseDecisionEntity {
 	@Column(name = "BeslutsID", nullable = false)
 	private int id;
 
-	@Column(name = "ArendeID", insertable=false, updatable=false)
+	@Column(name = "ArendeID", insertable = false, updatable = false)
 	private Integer caseId;
 
 	@Column(name = "BeslutsTyp")
@@ -43,13 +43,15 @@ public class CaseDecisionEntity {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof CaseDecisionEntity that)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof CaseDecisionEntity that))
+			return false;
 		return Objects.equals(id, that.id)
-				&& Objects.equals(caseId, that.caseId)
-				&& Objects.equals(relatedCase, that.relatedCase)
-				&& Objects.equals(type, that.type)
-				&& Objects.equals(decision, that.decision);
+			&& Objects.equals(caseId, that.caseId)
+			&& Objects.equals(relatedCase, that.relatedCase)
+			&& Objects.equals(type, that.type)
+			&& Objects.equals(decision, that.decision);
 	}
 
 	@Override
@@ -60,10 +62,10 @@ public class CaseDecisionEntity {
 	@Override
 	public String toString() {
 		return "CaseDecisionEntity{" +
-				"id=" + id +
-				", caseId=" + caseId +
-				", type='" + type + '\'' +
-				", decision=" + decision +
-				'}';
+			"id=" + id +
+			", caseId=" + caseId +
+			", type='" + type + '\'' +
+			", decision=" + decision +
+			'}';
 	}
 }

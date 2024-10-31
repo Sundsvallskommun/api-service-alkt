@@ -4,9 +4,7 @@
 		"urlPathPattern": "/party/2281/ENTERPRISE/a7983c36-07a7-4fad-a440-ce443ed4ff9e/legalId"
 	},
 	"response": {
-		"headers": {
-			"Content-Type": "text/plain"
-		},
+		"headers": {"Content-Type": "text/plain"},
 		"status": 500
 	}
 }

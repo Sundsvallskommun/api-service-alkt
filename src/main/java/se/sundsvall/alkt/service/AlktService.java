@@ -35,9 +35,10 @@ public class AlktService {
 	/**
 	 * Get owners and cases by partyId and municipalityId.
 	 * Some organizations occur multiple times in the database, hence why it returns a list.
-	 * @param municipalityId the municipality id
-	 * @param partyId partyId for a person or an organization
-	 * @return List of owners and their cases
+	 * 
+	 * @param  municipalityId the municipality id
+	 * @param  partyId        partyId for a person or an organization
+	 * @return                List of owners and their cases
 	 */
 	public List<Owner> getOwners(final String partyId, final String municipalityId) {
 		final var legalId = partyIntegration.getLegalIdWithHyphen(partyId, municipalityId);
@@ -45,12 +46,12 @@ public class AlktService {
 		final var ownerEntities = ownerRepository.findByLegalId(legalId);
 
 		final var mappedOwners = ownerEntities.stream()
-				.map(EntityMapper::toOwnerResponse)
-				.toList();
+			.map(EntityMapper::toOwnerResponse)
+			.toList();
 
 		mappedOwners.forEach(owner -> owner.getEstablishments().stream()
-				.flatMap(establishment -> establishment.getCases().stream())
-				.forEach(this::addCaseDescription));
+			.flatMap(establishment -> establishment.getCases().stream())
+			.forEach(this::addCaseDescription));
 
 		return mappedOwners;
 	}
@@ -80,7 +81,7 @@ public class AlktService {
 	}
 
 	private void addDecisionDescriptionToCase(final Decision decision) {
-		//Not all cases have a decision
+		// Not all cases have a decision
 		if (decision != null) {
 			final var decisionType = decision.getType();
 			final var descriptionDecision = plainTextRepository.findDescriptionForDecision(decisionType);

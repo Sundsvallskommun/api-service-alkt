@@ -28,10 +28,12 @@ public class PlainTextId {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof PlainTextId that)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof PlainTextId that))
+			return false;
 		return Objects.equals(codeType, that.codeType)
-				&& Objects.equals(code, that.code);
+			&& Objects.equals(code, that.code);
 	}
 
 	@Override
@@ -42,8 +44,8 @@ public class PlainTextId {
 	@Override
 	public String toString() {
 		return "PlainTextId{" +
-				"codeType='" + codeType + '\'' +
-				", code='" + code + '\'' +
-				'}';
+			"codeType='" + codeType + '\'' +
+			", code='" + code + '\'' +
+			'}';
 	}
 }

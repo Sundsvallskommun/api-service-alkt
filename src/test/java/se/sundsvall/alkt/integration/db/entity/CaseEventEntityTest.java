@@ -26,10 +26,10 @@ class CaseEventEntityTest {
 	@Test
 	void testBean() {
 		assertThat(CaseEventEntity.class, allOf(
-				hasValidBeanConstructor(),
-				hasValidGettersAndSetters(),
-				hasValidBeanHashCode(),
-				hasValidBeanEquals(),
-				hasValidBeanToStringExcluding("relatedCase")));
+			hasValidBeanConstructor(),
+			hasValidGettersAndSetters(),
+			hasValidBeanHashCode(),
+			hasValidBeanEquals(),
+			hasValidBeanToStringExcluding("relatedCase")));
 	}
 }

@@ -31,7 +31,7 @@ public class EstablishmentEntity {
 	@Column(name = "ObjektID")
 	private int id;
 
-	@Column(name = "AgarID", insertable=false, updatable=false)
+	@Column(name = "AgarID", insertable = false, updatable = false)
 	private Integer ownerId;
 
 	@ManyToOne
@@ -53,15 +53,17 @@ public class EstablishmentEntity {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof EstablishmentEntity that)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof EstablishmentEntity that))
+			return false;
 		return Objects.equals(id, that.id)
-				&& Objects.equals(ownerId, that.ownerId)
-				&& Objects.equals(owner, that.owner)
-				&& Objects.equals(cases, that.cases)
-				&& Objects.equals(servingName, that.servingName)
-				&& Objects.equals(changed, that.changed)
-				&& Objects.equals(posted, that.posted);
+			&& Objects.equals(ownerId, that.ownerId)
+			&& Objects.equals(owner, that.owner)
+			&& Objects.equals(cases, that.cases)
+			&& Objects.equals(servingName, that.servingName)
+			&& Objects.equals(changed, that.changed)
+			&& Objects.equals(posted, that.posted);
 	}
 
 	@Override
@@ -72,13 +74,13 @@ public class EstablishmentEntity {
 	@Override
 	public String toString() {
 		return "EstablishmentEntity{" +
-				"id=" + id +
-				", ownerId=" + ownerId +
-				", owner=" + owner +
-				", cases=" + cases +
-				", servingName='" + servingName + '\'' +
-				", changed=" + changed +
-				", posted=" + posted +
-				'}';
+			"id=" + id +
+			", ownerId=" + ownerId +
+			", owner=" + owner +
+			", cases=" + cases +
+			", servingName='" + servingName + '\'' +
+			", changed=" + changed +
+			", posted=" + posted +
+			'}';
 	}
 }

@@ -29,10 +29,12 @@ public class PlainTextEntity {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof PlainTextEntity that)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof PlainTextEntity that))
+			return false;
 		return Objects.equals(id, that.id)
-				&& Objects.equals(plainText, that.plainText);
+			&& Objects.equals(plainText, that.plainText);
 	}
 
 	@Override
@@ -43,8 +45,8 @@ public class PlainTextEntity {
 	@Override
 	public String toString() {
 		return "PlainTextEntity{" +
-				"id=" + id +
-				", plainText='" + plainText + '\'' +
-				'}';
+			"id=" + id +
+			", plainText='" + plainText + '\'' +
+			'}';
 	}
 }
