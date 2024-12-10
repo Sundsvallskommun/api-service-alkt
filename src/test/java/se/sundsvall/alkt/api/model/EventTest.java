@@ -6,7 +6,6 @@ import static com.google.code.beanmatchers.BeanMatchers.registerValueGenerator;
 import static org.hamcrest.core.AllOf.allOf;
 
 import java.time.LocalDateTime;
-
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

@@ -1,60 +1,70 @@
-[{
-	"establishments": [{
-		"cases": [
+[
+	{
+		"establishments": [
 			{
-				"decision": {
-					"created": "1996-01-18T00:00:00",
-					"description": "Delegationsbeslut SKÅL"
-				},
-				"registrationNumber": "1234567",
-				"description": "Tillstånd, slutet sällskap",
-				"closed": "1996-01-18T00:00:00",
-				"opened": "1996-01-18T00:00:00",
-				"id": 2,
-				"events": [{
-					"created": "1996-02-13T00:00:00",
-					"description": "Remiss till polisen"
-				}],
-				"open": false
-			},
-			{
-				"decision": {
-					"created": "1996-01-22T00:00:00",
-					"description": "Delegationsbeslut SKÅL"
-				},
-				"registrationNumber": "2345678",
-				"description": "Nytt tillstånd, allmänheten",
-				"closed": "1996-02-23T23:12:01",
-				"opened": "1996-01-18T00:00:00",
-				"id": 9,
-				"events": [{
-					"created": "1996-02-13T00:00:00",
-					"description": "Remiss till polisen"
-				}],
-				"open": false,
-				"changed": "2003-03-29T23:12:02"
-			},
-			{
-				"decision": {
-					"created": "1996-01-22T00:00:00",
-					"description": "Delegationsbeslut SKÅL"
-				},
-				"registrationNumber": "3456789",
-				"description": "Tillstånd, slutet sällskap",
-				"closed": "1996-01-17T23:08:50",
-				"opened": "1996-01-16T00:00:00",
-				"id": 12,
-				"events": [{
-					"created": "1996-03-01T00:00:00",
-					"description": "Remiss till polisen"
-				}],
-				"open": false,
-				"changed": "2003-03-29T23:08:50"
+				"cases": [
+					{
+						"decision": {
+							"created": "1996-01-18T00:00:00",
+							"description": "Delegationsbeslut SKÅL"
+						},
+						"registrationNumber": "1234567",
+						"description": "Tillstånd, slutet sällskap",
+						"closed": "1996-01-18T00:00:00",
+						"opened": "1996-01-18T00:00:00",
+						"id": 2,
+						"events": [
+							{
+								"created": "1996-02-13T00:00:00",
+								"description": "Remiss till polisen"
+							}
+						],
+						"open": false
+					},
+					{
+						"decision": {
+							"created": "1996-01-22T00:00:00",
+							"description": "Delegationsbeslut SKÅL"
+						},
+						"registrationNumber": "2345678",
+						"description": "Nytt tillstånd, allmänheten",
+						"closed": "1996-02-23T23:12:01",
+						"opened": "1996-01-18T00:00:00",
+						"id": 9,
+						"events": [
+							{
+								"created": "1996-02-13T00:00:00",
+								"description": "Remiss till polisen"
+							}
+						],
+						"open": false,
+						"changed": "2003-03-29T23:12:02"
+					},
+					{
+						"decision": {
+							"created": "1996-01-22T00:00:00",
+							"description": "Delegationsbeslut SKÅL"
+						},
+						"registrationNumber": "3456789",
+						"description": "Tillstånd, slutet sällskap",
+						"closed": "1996-01-17T23:08:50",
+						"opened": "1996-01-16T00:00:00",
+						"id": 12,
+						"events": [
+							{
+								"created": "1996-03-01T00:00:00",
+								"description": "Remiss till polisen"
+							}
+						],
+						"open": false,
+						"changed": "2003-03-29T23:08:50"
+					}
+				],
+				"name": "Kalles Uteservering",
+				"posted": "2003-04-02T09:18:37",
+				"changed": "2020-08-28T10:54:11.813"
 			}
 		],
-		"name": "Kalles Uteservering",
-		"posted": "2003-04-02T09:18:37",
-		"changed": "2020-08-28T10:54:11.813"
-	}],
-	"organizationName": "Kalle Ankas Aktiebolag"
-}]
+		"organizationName": "Kalle Ankas Aktiebolag"
+	}
+]

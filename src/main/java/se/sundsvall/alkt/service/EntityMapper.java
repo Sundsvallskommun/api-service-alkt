@@ -1,7 +1,6 @@
 package se.sundsvall.alkt.service;
 
 import java.util.Optional;
-
 import se.sundsvall.alkt.api.model.Case;
 import se.sundsvall.alkt.api.model.Decision;
 import se.sundsvall.alkt.api.model.Establishment;

@@ -11,7 +11,6 @@ import static org.zalando.problem.Status.NOT_FOUND;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,7 +19,6 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.zalando.problem.Problem;
-
 import se.sundsvall.alkt.TestObjectFactory;
 import se.sundsvall.alkt.integration.db.CaseRepository;
 import se.sundsvall.alkt.integration.db.OwnerRepository;

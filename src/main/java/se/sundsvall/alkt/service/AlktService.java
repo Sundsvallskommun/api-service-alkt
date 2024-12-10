@@ -3,10 +3,8 @@ package se.sundsvall.alkt.service;
 import static org.zalando.problem.Status.NOT_FOUND;
 
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.zalando.problem.Problem;
-
 import se.sundsvall.alkt.api.model.Case;
 import se.sundsvall.alkt.api.model.Decision;
 import se.sundsvall.alkt.api.model.Event;
