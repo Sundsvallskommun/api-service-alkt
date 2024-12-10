@@ -11,8 +11,8 @@ import static org.springframework.http.MediaType.APPLICATION_PROBLEM_JSON_VALUE;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import se.sundsvall.alkt.api.model.Case;
 import se.sundsvall.alkt.service.AlktService;
@@ -21,7 +21,7 @@ import se.sundsvall.alkt.service.AlktService;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CaseResourceTest {
 
-	@MockBean
+	@MockitoBean
 	private AlktService alktServiceMock;
 
 	@Autowired
