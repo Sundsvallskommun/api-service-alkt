@@ -3,7 +3,6 @@ package se.sundsvall.alkt;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 import se.sundsvall.alkt.integration.db.entity.CaseDecisionEntity;
 import se.sundsvall.alkt.integration.db.entity.CaseEntity;
 import se.sundsvall.alkt.integration.db.entity.CaseEventEntity;

@@ -2,11 +2,10 @@ package se.sundsvall.alkt.integration.party;
 
 import static java.lang.String.format;
 
+import generated.se.sundsvall.party.PartyType;
 import org.springframework.stereotype.Component;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
-
-import generated.se.sundsvall.party.PartyType;
 
 @Component
 public class PartyIntegration {

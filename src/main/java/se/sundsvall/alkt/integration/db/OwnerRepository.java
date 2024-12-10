@@ -1,13 +1,10 @@
 package se.sundsvall.alkt.integration.db;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.List;
-
 import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import se.sundsvall.alkt.integration.db.entity.OwnerEntity;
-
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @Transactional(readOnly = true)
 @CircuitBreaker(name = "ownerRepository")

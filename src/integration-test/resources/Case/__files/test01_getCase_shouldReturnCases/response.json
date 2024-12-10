@@ -8,9 +8,11 @@
 	"closed": "1996-01-18T00:00:00",
 	"opened": "1996-01-18T00:00:00",
 	"id": 2,
-	"events": [{
-		"created": "1996-02-13T00:00:00",
-		"description": "Remiss till polisen"
-	}],
+	"events": [
+		{
+			"created": "1996-02-13T00:00:00",
+			"description": "Remiss till polisen"
+		}
+	],
 	"open": false
 }

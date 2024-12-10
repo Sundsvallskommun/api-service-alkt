@@ -5,9 +5,7 @@ import static org.assertj.core.api.Assertions.within;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-
 import org.junit.jupiter.api.Test;
-
 import se.sundsvall.alkt.TestObjectFactory;
 
 class EntityMapperTest {
