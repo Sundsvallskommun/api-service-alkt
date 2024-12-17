@@ -5,6 +5,7 @@ import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 import static se.sundsvall.alkt.integration.party.configuration.PartyConfiguration.CLIENT_ID;
 
 import generated.se.sundsvall.party.PartyType;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.Optional;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -16,6 +17,7 @@ import se.sundsvall.alkt.integration.party.configuration.PartyConfiguration;
 	name = CLIENT_ID,
 	url = "${integration.party.url}",
 	configuration = PartyConfiguration.class)
+@CircuitBreaker(name = CLIENT_ID)
 public interface PartyClient {
 
 	@Cacheable("legalIds")
