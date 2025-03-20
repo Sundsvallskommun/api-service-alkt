@@ -26,11 +26,11 @@ import se.sundsvall.dept44.common.validators.annotation.ValidUuid;
 @RestController
 @RequestMapping("/{municipalityId}/owners")
 @Tag(name = "Owner", description = "Owner operations")
-public class OwnerResource {
+class OwnerResource {
 
 	private final AlktService alktService;
 
-	public OwnerResource(final AlktService alktService) {
+	OwnerResource(final AlktService alktService) {
 		this.alktService = alktService;
 	}
 

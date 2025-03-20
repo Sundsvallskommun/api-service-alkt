@@ -18,7 +18,7 @@ public final class EntityMapper {
 		// Prevent instantiation
 	}
 
-	public static Owner toOwnerResponse(OwnerEntity ownerEntity) {
+	public static Owner toOwnerResponse(final OwnerEntity ownerEntity) {
 		return Owner.builder()
 			.withOrganizationName(ownerEntity.getCompanyName())
 			.withEstablishments(ownerEntity.getEstablishments().stream()
@@ -27,7 +27,7 @@ public final class EntityMapper {
 			.build();
 	}
 
-	private static Establishment toEstablishment(EstablishmentEntity establishmentEntity) {
+	private static Establishment toEstablishment(final EstablishmentEntity establishmentEntity) {
 		return Establishment.builder()
 			.withName(establishmentEntity.getServingName())
 			.withChanged(establishmentEntity.getChanged())
@@ -38,7 +38,7 @@ public final class EntityMapper {
 			.build();
 	}
 
-	public static Case toCase(CaseEntity caseEntity) {
+	public static Case toCase(final CaseEntity caseEntity) {
 		return Case.builder()
 			.withId(caseEntity.getId())
 			.withType(caseEntity.getType())
@@ -57,7 +57,7 @@ public final class EntityMapper {
 			.build();
 	}
 
-	private static Event toEvent(CaseEventEntity caseEntity) {
+	private static Event toEvent(final CaseEventEntity caseEntity) {
 		return Event.builder()
 			.withChanged(caseEntity.getChanged())
 			.withPosted(caseEntity.getPosted())
@@ -66,7 +66,7 @@ public final class EntityMapper {
 			.build();
 	}
 
-	private static Decision toDecision(CaseDecisionEntity decisionEntity) {
+	private static Decision toDecision(final CaseDecisionEntity decisionEntity) {
 		return Decision.builder()
 			.withType(decisionEntity.getType())
 			.withCreated(decisionEntity.getDecision())

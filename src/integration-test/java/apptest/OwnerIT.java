@@ -1,12 +1,10 @@
 package apptest;
 
 import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpStatus.BAD_GATEWAY;
 import static org.springframework.http.HttpStatus.OK;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import se.sundsvall.alkt.Application;
 import se.sundsvall.dept44.test.AbstractAppTest;
 import se.sundsvall.dept44.test.annotation.wiremock.WireMockAppTestSuite;
@@ -36,11 +34,11 @@ class OwnerIT extends AbstractAppTest {
 	}
 
 	@Test
-	void test02_getOwners_internalServerErrorFromPartyIntegration_shouldReturnBadGateway() {
+	void test02_getOwners_shouldReturnEmptyList() {
 		setupCall()
 			.withServicePath(BASE_URL + "a7983c36-07a7-4fad-a440-ce443ed4ff9e")
 			.withHttpMethod(GET)
-			.withExpectedResponseStatus(BAD_GATEWAY)
+			.withExpectedResponseStatus(OK)
 			.withExpectedResponse(RESPONSE_FILE)
 			.sendRequestAndVerifyResponse();
 	}

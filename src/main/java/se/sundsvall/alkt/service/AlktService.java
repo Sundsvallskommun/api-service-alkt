@@ -1,6 +1,7 @@
 package se.sundsvall.alkt.service;
 
 import static org.zalando.problem.Status.NOT_FOUND;
+import static se.sundsvall.alkt.service.util.StringUtil.addHyphenToLegalId;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,11 @@ public class AlktService {
 	private final PlainTextRepository plainTextRepository;
 	private final CaseRepository caseRepository;
 
-	public AlktService(final PartyIntegration partyIntegration, final OwnerRepository ownerRepository, final PlainTextRepository plainTextRepository, final CaseRepository caseRepository) {
+	public AlktService(
+		final PartyIntegration partyIntegration,
+		final OwnerRepository ownerRepository,
+		final PlainTextRepository plainTextRepository,
+		final CaseRepository caseRepository) {
 		this.partyIntegration = partyIntegration;
 		this.ownerRepository = ownerRepository;
 		this.plainTextRepository = plainTextRepository;
@@ -31,17 +36,18 @@ public class AlktService {
 	}
 
 	/**
-	 * Get owners and cases by partyId and municipalityId.
-	 * Some organizations occur multiple times in the database, hence why it returns a list.
-	 * 
+	 * Get owners and cases by partyId and municipalityId. Some organizations occur multiple times in the database, hence
+	 * why it returns a list.
+	 *
 	 * @param  municipalityId the municipality id
 	 * @param  partyId        partyId for a person or an organization
 	 * @return                List of owners and their cases
 	 */
 	public List<Owner> getOwners(final String partyId, final String municipalityId) {
-		final var legalId = partyIntegration.getLegalIdWithHyphen(partyId, municipalityId);
+		final var legalId = partyIntegration.getLegalId(partyId, municipalityId);
+		final var legalIdWithHyphen = addHyphenToLegalId(legalId);
 
-		final var ownerEntities = ownerRepository.findByLegalId(legalId);
+		final var ownerEntities = ownerRepository.findByLegalId(legalIdWithHyphen);
 
 		final var mappedOwners = ownerEntities.stream()
 			.map(EntityMapper::toOwnerResponse)

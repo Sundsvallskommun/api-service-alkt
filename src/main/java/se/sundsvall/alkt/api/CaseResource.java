@@ -24,11 +24,11 @@ import se.sundsvall.dept44.common.validators.annotation.ValidMunicipalityId;
 @RestController
 @RequestMapping("/{municipalityId}/case")
 @Tag(name = "Case", description = "Case operations")
-public class CaseResource {
+class CaseResource {
 
 	private final AlktService alktService;
 
-	public CaseResource(final AlktService alktService) {
+	CaseResource(final AlktService alktService) {
 		this.alktService = alktService;
 	}
 
