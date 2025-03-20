@@ -1,5 +1,6 @@
 package se.sundsvall.alkt.service;
 
+import static java.util.Collections.emptyList;
 import static org.zalando.problem.Status.NOT_FOUND;
 import static se.sundsvall.alkt.service.util.StringUtil.addHyphenToLegalId;
 
@@ -46,6 +47,9 @@ public class AlktService {
 	public List<Owner> getOwners(final String partyId, final String municipalityId) {
 		final var legalId = partyIntegration.getLegalId(partyId, municipalityId);
 		final var legalIdWithHyphen = addHyphenToLegalId(legalId);
+		if (legalIdWithHyphen.length() != 11) {
+			return emptyList();
+		}
 
 		final var ownerEntities = ownerRepository.findByLegalId(legalIdWithHyphen);
 
