@@ -34,7 +34,7 @@ class PartyIntegrationTest {
 
 		var legalId = partyIntegration.getLegalId(PRIVATE_UUID, MUNICIPALITY_ID);
 
-		assertThat(legalId).isEqualTo("198001011234");
+		assertThat(legalId).isEqualTo(Optional.of("198001011234"));
 		verify(partyClient).getLegalId(MUNICIPALITY_ID, PartyType.ENTERPRISE, PRIVATE_UUID);
 		verify(partyClient).getLegalId(MUNICIPALITY_ID, PartyType.PRIVATE, PRIVATE_UUID);
 	}
@@ -45,7 +45,7 @@ class PartyIntegrationTest {
 
 		var legalId = partyIntegration.getLegalId(ENTERPRISE_UUID, MUNICIPALITY_ID);
 
-		assertThat(legalId).isEqualTo("5591628136");
+		assertThat(legalId).isEqualTo(Optional.of("5591628136"));
 		verify(partyClient).getLegalId(MUNICIPALITY_ID, PartyType.ENTERPRISE, ENTERPRISE_UUID);
 		verify(partyClient, times(0)).getLegalId(MUNICIPALITY_ID, PartyType.PRIVATE, ENTERPRISE_UUID);
 	}

@@ -1,8 +1,10 @@
 package se.sundsvall.alkt.integration.party;
 
 import generated.se.sundsvall.party.PartyType;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,15 +24,14 @@ public class PartyIntegration {
 	 * @param  partyId the partyId to get legalId for
 	 * @return         the legalId
 	 */
-	public String getLegalId(final String partyId, final String municipalityId) {
+	@Cacheable("legalIds")
+	public Optional<String> getLegalId(final String partyId, final String municipalityId) {
 		try {
 			return partyClient.getLegalId(municipalityId, PartyType.ENTERPRISE, partyId)
-				.or(() -> partyClient.getLegalId(municipalityId, PartyType.PRIVATE, partyId))
-				.orElse("");
+				.or(() -> partyClient.getLegalId(municipalityId, PartyType.PRIVATE, partyId));
 		} catch (Exception e) {
 			LOGGER.debug("Unable to get legalId for partyId: {}", partyId, e);
-			// Returning an empty string, it will result in an empty response which is the expected behaviour.
-			return "";
+			return Optional.empty();
 		}
 
 	}
