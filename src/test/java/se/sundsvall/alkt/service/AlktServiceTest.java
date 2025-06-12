@@ -52,7 +52,7 @@ class AlktServiceTest {
 	@Test
 	void getOwners() {
 		final String uuid = UUID.randomUUID().toString();
-		when(partyIntegrationMock.getLegalId(uuid, MUNICIPALITY_ID)).thenReturn(LEGAL_ID);
+		when(partyIntegrationMock.getLegalId(uuid, MUNICIPALITY_ID)).thenReturn(Optional.of(LEGAL_ID));
 		when(ownerRepositoryMock.findByLegalId(LEGAL_ID)).thenReturn(List.of(TestObjectFactory.generateOwnerEntity()));
 		when(plainTextRepositoryMock.findDescriptionForCase(any())).thenReturn(TestObjectFactory.generateOptionalPlainTextEntity());
 		when(plainTextRepositoryMock.findDescriptionForEvent(any())).thenReturn(TestObjectFactory.generateOptionalPlainTextEntity());
