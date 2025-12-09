@@ -15,18 +15,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Event {
-	@JsonIgnore // Not needed in reponse but when decorating the event Description
+
+	@JsonIgnore // Not needed in response but when decorating the event Description
 	private String type;
 
-	@Schema(description = "Description of the event", example = "Remiss till skattemyndigheten")
+	@Schema(description = "Description of the event", examples = "Remiss till skattemyndigheten")
 	private String description;
 
-	@Schema(description = "When the event was changed", example = "2021-01-01T00:00:00")
+	@Schema(description = "When the event was changed", examples = "2021-01-01T00:00:00")
 	private LocalDateTime changed;
 
-	@Schema(description = "When the event happened", example = "2021-01-01T00:00:00")
+	@Schema(description = "When the event happened", examples = "2021-01-01T00:00:00")
 	private LocalDateTime created;
 
-	@Schema(description = "When the event was posted", example = "2021-01-01T00:00:00")
+	@Schema(description = "When the event was posted", examples = "2021-01-01T00:00:00")
 	private LocalDateTime posted;
 }

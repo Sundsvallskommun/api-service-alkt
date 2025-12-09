@@ -17,13 +17,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Establishment {
 
-	@Schema(description = "Name of the establishment", example = "Lelles bar")
+	@Schema(description = "Name of the establishment", examples = "Lelles bar")
 	private String name;
 
-	@Schema(description = "When the establishment was first created", example = "2021-01-01T00:00:00")
+	@Schema(description = "When the establishment was first created", examples = "2021-01-01T00:00:00")
 	private LocalDateTime posted;
 
-	@Schema(description = "When the establishment was changed", example = "2021-01-01T00:00:00")
+	@Schema(description = "When the establishment was changed", examples = "2021-01-01T00:00:00")
 	private LocalDateTime changed;
 
 	@ArraySchema(schema = @Schema(description = "All cases on an establishment", implementation = Case.class))
