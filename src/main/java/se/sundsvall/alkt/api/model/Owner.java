@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Owner {
 
-	@Schema(description = "Name of the organization", example = "Lelles AB")
+	@Schema(description = "Name of the organization", examples = "Lelles AB")
 	private String organizationName;
 
 	@ArraySchema(schema = @Schema(description = "List of all establishments", implementation = Establishment.class))

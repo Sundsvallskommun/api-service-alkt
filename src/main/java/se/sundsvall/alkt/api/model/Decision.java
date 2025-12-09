@@ -16,12 +16,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Decision {
 
-	@JsonIgnore // Not needed in reponse but when decorating the decision Description
+	@JsonIgnore // Not needed in response but when decorating the decision Description
 	private String type;
 
-	@Schema(description = "A description of which decision was made", example = "Tillstånd allmänhet")
+	@Schema(description = "A description of which decision was made", examples = "Tillstånd allmänhet")
 	private String description;
 
-	@Schema(description = "When the decision was made", example = "2021-01-01T00:00:00")
+	@Schema(description = "When the decision was made", examples = "2021-01-01T00:00:00")
 	private LocalDateTime created;
 }
