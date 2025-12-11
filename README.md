@@ -6,7 +6,7 @@ _A service for retrieving owners, their establishments and ongoing cases regardi
 
 ### Prerequisites
 
-- **Java 21 or higher**
+- **Java 25 or higher**
 - **Maven**
 - **MSSQL DB**
 - **Git**
