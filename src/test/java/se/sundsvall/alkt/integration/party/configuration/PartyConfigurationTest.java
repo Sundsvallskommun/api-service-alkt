@@ -1,11 +1,5 @@
 package se.sundsvall.alkt.integration.party.configuration;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static se.sundsvall.alkt.integration.party.configuration.PartyConfiguration.CLIENT_ID;
-
 import feign.codec.ErrorDecoder;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -23,6 +17,12 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.test.context.ActiveProfiles;
 import se.sundsvall.dept44.configuration.feign.FeignMultiCustomizer;
 import se.sundsvall.dept44.configuration.feign.decoder.ProblemErrorDecoder;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static se.sundsvall.alkt.integration.party.configuration.PartyConfiguration.CLIENT_ID;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("junit")

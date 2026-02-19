@@ -1,9 +1,5 @@
 package se.sundsvall.alkt.integration.db;
 
-import static se.sundsvall.alkt.configuration.AlkTCacheConfig.CASE_DESCRIPTION_CACHE;
-import static se.sundsvall.alkt.configuration.AlkTCacheConfig.DECISION_DESCRIPTION_CACHE;
-import static se.sundsvall.alkt.configuration.AlkTCacheConfig.EVENT_DESCRIPTION_CACHE;
-
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +8,10 @@ import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import se.sundsvall.alkt.integration.db.entity.PlainTextEntity;
 import se.sundsvall.alkt.integration.db.entity.PlainTextId;
+
+import static se.sundsvall.alkt.configuration.AlkTCacheConfig.CASE_DESCRIPTION_CACHE;
+import static se.sundsvall.alkt.configuration.AlkTCacheConfig.DECISION_DESCRIPTION_CACHE;
+import static se.sundsvall.alkt.configuration.AlkTCacheConfig.EVENT_DESCRIPTION_CACHE;
 
 /**
  * Repository for fetching PlainTextEntities. Caching of the results since there will be a lot of calls to these

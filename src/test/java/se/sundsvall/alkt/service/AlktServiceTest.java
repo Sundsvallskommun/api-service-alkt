@@ -1,13 +1,5 @@
 package se.sundsvall.alkt.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.same;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.zalando.problem.Status.NOT_FOUND;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,6 +16,14 @@ import se.sundsvall.alkt.integration.db.CaseRepository;
 import se.sundsvall.alkt.integration.db.OwnerRepository;
 import se.sundsvall.alkt.integration.db.PlainTextRepository;
 import se.sundsvall.alkt.integration.party.PartyIntegration;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.same;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.zalando.problem.Status.NOT_FOUND;
 
 @ExtendWith(MockitoExtension.class)
 class AlktServiceTest {

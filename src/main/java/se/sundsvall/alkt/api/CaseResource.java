@@ -1,7 +1,5 @@
 package se.sundsvall.alkt.api;
 
-import static org.springframework.http.MediaType.APPLICATION_PROBLEM_JSON_VALUE;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,6 +17,8 @@ import org.zalando.problem.violations.ConstraintViolationProblem;
 import se.sundsvall.alkt.api.model.Case;
 import se.sundsvall.alkt.service.AlktService;
 import se.sundsvall.dept44.common.validators.annotation.ValidMunicipalityId;
+
+import static org.springframework.http.MediaType.APPLICATION_PROBLEM_JSON_VALUE;
 
 @Validated
 @RestController
