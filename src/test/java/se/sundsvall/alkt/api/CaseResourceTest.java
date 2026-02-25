@@ -3,6 +3,7 @@ package se.sundsvall.alkt.api;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTestClient;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -19,6 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_PROBLEM_JSON_VALUE;
 
 @ActiveProfiles("junit")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureWebTestClient
 class CaseResourceTest {
 
 	@MockitoBean
@@ -59,7 +61,7 @@ class CaseResourceTest {
 			.expectBody()
 			.json("""
 				{
-					"detail": "Method parameter 'caseId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; For input string: \\"not-integer\\"",
+					"detail": "Failed to convert 'caseId' with value: 'not-integer'",
 					"status": 400,
 					"title": "Bad Request"
 				}

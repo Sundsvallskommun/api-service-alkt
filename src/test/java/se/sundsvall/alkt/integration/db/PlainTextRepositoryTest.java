@@ -5,19 +5,20 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ActiveProfiles;
 import se.sundsvall.alkt.integration.db.entity.PlainTextEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static se.sundsvall.alkt.configuration.AlkTCacheConfig.CASE_DESCRIPTION_CACHE;
-import static se.sundsvall.alkt.configuration.AlkTCacheConfig.DECISION_DESCRIPTION_CACHE;
-import static se.sundsvall.alkt.configuration.AlkTCacheConfig.EVENT_DESCRIPTION_CACHE;
+import static org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase.Replace.NONE;
+import static se.sundsvall.alkt.configuration.CacheConfiguration.CASE_DESCRIPTION_CACHE;
+import static se.sundsvall.alkt.configuration.CacheConfiguration.DECISION_DESCRIPTION_CACHE;
+import static se.sundsvall.alkt.configuration.CacheConfiguration.EVENT_DESCRIPTION_CACHE;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace = NONE)
 @ActiveProfiles("junit")
 class PlainTextRepositoryTest {
 

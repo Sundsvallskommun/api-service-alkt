@@ -2,7 +2,6 @@ package se.sundsvall.alkt.service;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import org.zalando.problem.Problem;
 import se.sundsvall.alkt.api.model.Case;
 import se.sundsvall.alkt.api.model.Decision;
 import se.sundsvall.alkt.api.model.Event;
@@ -12,10 +11,11 @@ import se.sundsvall.alkt.integration.db.OwnerRepository;
 import se.sundsvall.alkt.integration.db.PlainTextRepository;
 import se.sundsvall.alkt.integration.db.entity.PlainTextEntity;
 import se.sundsvall.alkt.integration.party.PartyIntegration;
+import se.sundsvall.dept44.problem.Problem;
 
 import static java.util.Collections.emptyList;
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.zalando.problem.Status.NOT_FOUND;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static se.sundsvall.alkt.service.util.StringUtil.addHyphenToLegalId;
 
 @Service

@@ -10,12 +10,12 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.zalando.problem.Problem;
 import se.sundsvall.alkt.TestObjectFactory;
 import se.sundsvall.alkt.integration.db.CaseRepository;
 import se.sundsvall.alkt.integration.db.OwnerRepository;
 import se.sundsvall.alkt.integration.db.PlainTextRepository;
 import se.sundsvall.alkt.integration.party.PartyIntegration;
+import se.sundsvall.dept44.problem.Problem;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.zalando.problem.Status.NOT_FOUND;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @ExtendWith(MockitoExtension.class)
 class AlktServiceTest {

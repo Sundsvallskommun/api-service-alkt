@@ -3,10 +3,13 @@ package se.sundsvall.alkt.api;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTestClient;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -23,6 +26,8 @@ import static org.springframework.http.MediaType.APPLICATION_PROBLEM_JSON_VALUE;
 
 @ActiveProfiles("junit")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ExtendWith(MockitoExtension.class)
+@AutoConfigureWebTestClient
 class OwnerResourceTest {
 
 	private static final String PATH = "/{municipalityId}/owners/{partyId}";
@@ -83,7 +88,7 @@ class OwnerResourceTest {
 			.expectStatus().isBadRequest()
 			.expectHeader().contentType(APPLICATION_PROBLEM_JSON_VALUE)
 			.expectBody()
-			.jsonPath("$.type").isEqualTo("https://zalando.github.io/problem/constraint-violation")
+			.jsonPath("$.type").isEqualTo("about:blank")
 			.jsonPath("$.status").isEqualTo(400)
 			.jsonPath("$.title").isEqualTo("Constraint Violation")
 			.jsonPath("$.violations[0].field").isEqualTo("getOwners.partyId")
