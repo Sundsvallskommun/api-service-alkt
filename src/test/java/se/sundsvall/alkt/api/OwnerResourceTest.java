@@ -31,22 +31,18 @@ import static org.springframework.http.MediaType.APPLICATION_PROBLEM_JSON_VALUE;
 class OwnerResourceTest {
 
 	private static final String PATH = "/{municipalityId}/owners/{partyId}";
-
+	private static final String VALID_UUID = UUID.randomUUID().toString();
+	private static final String MUNICIPALITY_ID = "2281";
 	@MockitoBean
 	private AlktService alktServiceMock;
-
 	@Captor
 	private ArgumentCaptor<String> alktServiceArgumentCaptor;
-
 	@Autowired
 	private WebTestClient webTestClient;
 
-	private static final String VALID_UUID = UUID.randomUUID().toString();
-	private static final String MUNICIPALITY_ID = "2281";
-
 	@Test
 	void getOwnersAndCasesByPartyIdWhenFoundOwnerShouldReturnListOfOwners() {
-		var ownerList = List.of(Owner.builder().build());
+		final var ownerList = List.of(Owner.builder().build());
 
 		when(alktServiceMock.getOwners(VALID_UUID, MUNICIPALITY_ID)).thenReturn(ownerList);
 
@@ -63,7 +59,7 @@ class OwnerResourceTest {
 
 	@Test
 	void getOwnersAndCasesByPartyIdWhenNoOwnersShouldReturnEmptyList() {
-		List<Owner> ownerList = List.of();
+		final List<Owner> ownerList = List.of();
 
 		when(alktServiceMock.getOwners(VALID_UUID, MUNICIPALITY_ID)).thenReturn(ownerList);
 
@@ -80,7 +76,7 @@ class OwnerResourceTest {
 
 	@Test
 	void getOwnersAndCasesByPArtyIdWhenFaultyUuid() {
-		String faultyUuid = "faultyUuid";
+		final String faultyUuid = "faultyUuid";
 
 		webTestClient.get()
 			.uri(PATH, MUNICIPALITY_ID, faultyUuid)
@@ -88,7 +84,7 @@ class OwnerResourceTest {
 			.expectStatus().isBadRequest()
 			.expectHeader().contentType(APPLICATION_PROBLEM_JSON_VALUE)
 			.expectBody()
-			.jsonPath("$.type").isEqualTo("about:blank")
+			.jsonPath("$.type").isEqualTo("https://github.com/Sundsvallskommun/dept44/problems/constraint-violation")
 			.jsonPath("$.status").isEqualTo(400)
 			.jsonPath("$.title").isEqualTo("Constraint Violation")
 			.jsonPath("$.violations[0].field").isEqualTo("getOwners.partyId")
