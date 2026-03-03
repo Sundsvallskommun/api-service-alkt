@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import se.sundsvall.alkt.integration.db.entity.PlainTextEntity;
 import se.sundsvall.alkt.integration.db.entity.PlainTextId;
 
-import static se.sundsvall.alkt.configuration.AlkTCacheConfig.CASE_DESCRIPTION_CACHE;
-import static se.sundsvall.alkt.configuration.AlkTCacheConfig.DECISION_DESCRIPTION_CACHE;
-import static se.sundsvall.alkt.configuration.AlkTCacheConfig.EVENT_DESCRIPTION_CACHE;
+import static se.sundsvall.alkt.configuration.CacheConfiguration.CASE_DESCRIPTION_CACHE;
+import static se.sundsvall.alkt.configuration.CacheConfiguration.DECISION_DESCRIPTION_CACHE;
+import static se.sundsvall.alkt.configuration.CacheConfiguration.EVENT_DESCRIPTION_CACHE;
 
 /**
  * Repository for fetching PlainTextEntities. Caching of the results since there will be a lot of calls to these
