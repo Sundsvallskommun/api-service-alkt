@@ -7,32 +7,32 @@ info:
     url: https://opensource.org/licenses/MIT
   version: "2.0"
 servers:
-- url: http://localhost:8080
-  description: Generated server url
+  - url: http://localhost:54735
+    description: Generated server url
 tags:
-- name: Case
-  description: Case operations
-- name: Owner
-  description: Owner operations
+  - name: Case
+    description: Case operations
+  - name: Owner
+    description: Owner operations
 paths:
   /{municipalityId}/owners/{partyId}:
     get:
       tags:
-      - Owner
+        - Owner
       summary: Get owners and their cases by partyId
       operationId: getOwners
       parameters:
-      - name: municipalityId
-        in: path
-        description: Municipality id
-        required: true
-        schema:
-          type: string
-      - name: partyId
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: municipalityId
+          in: path
+          description: Municipality id
+          required: true
+          schema:
+            type: string
+        - name: partyId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: Successful Operation
@@ -48,8 +48,8 @@ paths:
             application/problem+json:
               schema:
                 oneOf:
-                - $ref: "#/components/schemas/Problem"
-                - $ref: "#/components/schemas/ConstraintViolationProblem"
+                  - $ref: "#/components/schemas/Problem"
+                  - $ref: "#/components/schemas/ConstraintViolationProblem"
         "404":
           description: Not Found
           content:
@@ -71,22 +71,22 @@ paths:
   /{municipalityId}/case/{caseId}:
     get:
       tags:
-      - Case
+        - Case
       summary: Get case by caseId
       operationId: getCase
       parameters:
-      - name: municipalityId
-        in: path
-        description: Municipality id
-        required: true
-        schema:
-          type: string
-      - name: caseId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: municipalityId
+          in: path
+          description: Municipality id
+          required: true
+          schema:
+            type: string
+        - name: caseId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: Successful Operation
@@ -100,8 +100,8 @@ paths:
             application/problem+json:
               schema:
                 oneOf:
-                - $ref: "#/components/schemas/Problem"
-                - $ref: "#/components/schemas/ConstraintViolationProblem"
+                  - $ref: "#/components/schemas/Problem"
+                  - $ref: "#/components/schemas/ConstraintViolationProblem"
         "404":
           description: Not Found
           content:
@@ -123,7 +123,7 @@ paths:
   /api-docs:
     get:
       tags:
-      - API
+        - API
       summary: OpenAPI
       operationId: getApiDocs
       responses:
@@ -141,16 +141,16 @@ components:
     Problem:
       type: object
       properties:
-        title:
-          type: string
-        detail:
-          type: string
         instance:
           type: string
           format: uri
         type:
           type: string
           format: uri
+        title:
+          type: string
+        detail:
+          type: string
         status:
           type: integer
           format: int32
@@ -169,13 +169,13 @@ components:
             $ref: "#/components/schemas/Violation"
         title:
           type: string
+        instance:
+          type: string
+          format: uri
         detail:
           type: string
         causeAsProblem:
           $ref: "#/components/schemas/ThrowableProblem"
-        instance:
-          type: string
-          format: uri
     ThrowableProblem:
       type: object
       properties:
@@ -208,41 +208,41 @@ components:
           format: int32
           description: Case number
           examples:
-          - "123"
+            - 123
         registrationNumber:
           type: string
           description: Registration number
           examples:
-          - "1234567890"
+            - "1234567890"
         description:
           type: string
           description: Case description
           examples:
-          - "Nytt tillstånd, allmänheten"
+            - "Nytt tillstånd, allmänheten"
         changed:
           type: string
           format: date-time
           description: When the case was changed
           examples:
-          - 2021-01-01T00:00:00
+            - 2021-01-01T00:00:00
         closed:
           type: string
           format: date-time
           description: When the case was closed
           examples:
-          - 2021-01-01T00:00:00
+            - 2021-01-01T00:00:00
         opened:
           type: string
           format: date-time
           description: When the case was opened
           examples:
-          - 2021-01-01T00:00:00
+            - 2021-01-01T00:00:00
         posted:
           type: string
           format: date-time
           description: When the case was posted
           examples:
-          - 2021-01-01T00:00:00
+            - 2021-01-01T00:00:00
         events:
           type: array
           items:
@@ -260,13 +260,13 @@ components:
           type: string
           description: A description of which decision was made
           examples:
-          - Tillstånd allmänhet
+            - Tillstånd allmänhet
         created:
           type: string
           format: date-time
           description: When the decision was made
           examples:
-          - 2021-01-01T00:00:00
+            - 2021-01-01T00:00:00
     Establishment:
       type: object
       properties:
@@ -274,19 +274,19 @@ components:
           type: string
           description: Name of the establishment
           examples:
-          - Lelles bar
+            - Lelles bar
         posted:
           type: string
           format: date-time
           description: When the establishment was first created
           examples:
-          - 2021-01-01T00:00:00
+            - 2021-01-01T00:00:00
         changed:
           type: string
           format: date-time
           description: When the establishment was changed
           examples:
-          - 2021-01-01T00:00:00
+            - 2021-01-01T00:00:00
         cases:
           type: array
           items:
@@ -299,25 +299,25 @@ components:
           type: string
           description: Description of the event
           examples:
-          - Remiss till skattemyndigheten
+            - Remiss till skattemyndigheten
         changed:
           type: string
           format: date-time
           description: When the event was changed
           examples:
-          - 2021-01-01T00:00:00
+            - 2021-01-01T00:00:00
         created:
           type: string
           format: date-time
           description: When the event happened
           examples:
-          - 2021-01-01T00:00:00
+            - 2021-01-01T00:00:00
         posted:
           type: string
           format: date-time
           description: When the event was posted
           examples:
-          - 2021-01-01T00:00:00
+            - 2021-01-01T00:00:00
     Owner:
       type: object
       properties:
@@ -325,7 +325,7 @@ components:
           type: string
           description: Name of the organization
           examples:
-          - Lelles AB
+            - Lelles AB
         establishments:
           type: array
           items:

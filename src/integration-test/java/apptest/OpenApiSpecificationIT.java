@@ -1,7 +1,5 @@
 package apptest;
 
-import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import java.util.List;
@@ -18,6 +16,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.util.UriComponentsBuilder;
 import se.sundsvall.alkt.Application;
 import se.sundsvall.dept44.util.ResourceUtils;
+
+import static java.nio.file.Files.writeString;
+import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 
 @ActiveProfiles("it")
 @SpringBootTest(
@@ -47,9 +48,11 @@ class OpenApiSpecificationIT {
 	private TestRestTemplate restTemplate;
 
 	@Test
-	void compareOpenApiSpecifications() {
+	void compareOpenApiSpecifications() throws java.io.IOException {
 		final String existingOpenApiSpecification = ResourceUtils.asString(openApiResource);
 		final String currentOpenApiSpecification = getCurrentOpenApiSpecification();
+
+		writeString(java.nio.file.Path.of("target/openapi.yaml"), currentOpenApiSpecification);
 
 		assertThatJson(toJson(existingOpenApiSpecification))
 			.withOptions(List.of(Option.IGNORING_ARRAY_ORDER))
