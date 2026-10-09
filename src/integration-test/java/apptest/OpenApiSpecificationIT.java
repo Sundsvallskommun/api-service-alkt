@@ -28,8 +28,7 @@ import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 		"spring.main.banner-mode=off",
 		"logging.level.se.sundsvall.dept44.payload=OFF",
 		"wiremock.server.port=10101"
-	}
-)
+	})
 @AutoConfigureTestRestTemplate
 class OpenApiSpecificationIT {
 
@@ -76,8 +75,8 @@ class OpenApiSpecificationIT {
 	/**
 	 * Attempts to convert the given YAML (no YAML-check...) to JSON.
 	 *
-	 * @param yaml the YAML to convert
-	 * @return a JSON string
+	 * @param  yaml the YAML to convert
+	 * @return      a JSON string
 	 */
 	private String toJson(final String yaml) {
 		try {
